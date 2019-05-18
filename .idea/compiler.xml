@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="jcloud-common" />
+        <module name="jcloud-config" />
+        <module name="jcloud-eureka" />
+        <module name="jcloud-gateway" />
+        <module name="jcloud-monitor" />
+        <module name="jcloud-provider" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jcloud" target="1.8" />
+      <module name="jcloud-common" target="1.8" />
+      <module name="jcloud-config" target="1.8" />
+      <module name="jcloud-eureka" target="1.8" />
+      <module name="jcloud-gateway" target="1.8" />
+      <module name="jcloud-monitor" target="1.8" />
+      <module name="jcloud-provider" target="1.8" />
+      <module name="jcloud-sleuth" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

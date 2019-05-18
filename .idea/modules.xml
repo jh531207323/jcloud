@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/jcloud.iml" filepath="$PROJECT_DIR$/jcloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jcloud-common/jcloud-common.iml" filepath="$PROJECT_DIR$/jcloud-common/jcloud-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jcloud-config/jcloud-config.iml" filepath="$PROJECT_DIR$/jcloud-config/jcloud-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jcloud-eureka/jcloud-eureka.iml" filepath="$PROJECT_DIR$/jcloud-eureka/jcloud-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jcloud-gateway/jcloud-gateway.iml" filepath="$PROJECT_DIR$/jcloud-gateway/jcloud-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jcloud-monitor/jcloud-monitor.iml" filepath="$PROJECT_DIR$/jcloud-monitor/jcloud-monitor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jcloud-provider/jcloud-provider.iml" filepath="$PROJECT_DIR$/jcloud-provider/jcloud-provider.iml" />
+    </modules>
+  </component>
+</project>

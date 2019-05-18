@@ -1,0 +1,24 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: @pom.artifactId@
+  security:
+    user:
+      name: root
+      password: root
+
+eureka:
+  server:
+    enable-self-preservation: false #（设为false，关闭自我保护主要）
+    eviction-interval-timer-in-ms: 5000 #清理间隔（单位毫秒，默认是60*1000）
+  instance:
+    hostname: localhost
+    lease-expiration-duration-in-seconds: 90 #租期到期时间（默认90秒）
+    lease-renewal-interval-in-seconds: 30 #租期更新时间间隔（默认30秒）
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
