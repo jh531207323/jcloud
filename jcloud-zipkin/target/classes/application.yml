@@ -26,3 +26,10 @@ management:
     web:
       server:
         auto-time-requests: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
