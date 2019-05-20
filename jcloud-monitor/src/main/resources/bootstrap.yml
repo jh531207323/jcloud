@@ -3,7 +3,7 @@ spring:
     config:
       fail-fast: true
       discovery:
-        service-id: jcloud-monitor
+        service-id: jcloud-config
         enabled: true
       profile: dev
       username: root
