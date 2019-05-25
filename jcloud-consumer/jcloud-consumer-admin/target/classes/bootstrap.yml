@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        service-id: jcloud-config
+        enabled: true
+      profile: dev
+      username: root
+      password: root
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:root@localhost:8761/eureka/

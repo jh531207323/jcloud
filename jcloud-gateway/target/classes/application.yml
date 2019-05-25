@@ -10,12 +10,23 @@ spring:
     user:
       name: root
       password: root
+    oauth2:
+      resource:
+        #获取当前Token的用户信息
+        user-info-uri: http://localhost:9000/user/current
+        prefer-token-info: false
+        loadBalanced: true
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
+      routes:
+      - id: fsh-house
+        uri: lb://jcloud-auth
+        predicates:
+        - Path=/uaa/**
 
 eureka:
   client:
