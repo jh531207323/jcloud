@@ -5,6 +5,7 @@ spring:
       discovery:
         service-id: jcloud-config
         enabled: true
+      name: jcloud-gateway
       profile: dev
       username: root
       password: root

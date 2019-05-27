@@ -16,7 +16,7 @@ public class JcloudGatewayApplication {
         SpringApplication.run(JcloudGatewayApplication.class, args);
     }
 
-    @Value("${key}") // git配置文件里的key
+    @Value("${jcloud.gateway.key}") // git配置文件里的key
     String myww;
 
     @RequestMapping(value = "/hi")

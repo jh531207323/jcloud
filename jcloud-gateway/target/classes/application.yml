@@ -1,46 +1,11 @@
-server:
-  port: 8900
-
 spring:
-  profiles:
-    active: dev
-  application:
-    name: jcloud-gateway
-  security:
-    user:
-      name: root
-      password: root
-    oauth2:
-      resource:
-        #获取当前Token的用户信息
-        user-info-uri: http://localhost:9000/user/current
-        prefer-token-info: false
-        loadBalanced: true
   cloud:
-    gateway:
+    config:
+      fail-fast: true
       discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-      - id: fsh-house
-        uri: lb://jcloud-auth
-        predicates:
-        - Path=/uaa/**
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://root:root@localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}:0.0.1-SNAPSHOT
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: ALWAYS
+        service-id: jcloud-config
+        enabled: true
+      name: jcloud-gateway
+      profile: dev
+      username: root
+      password: root
