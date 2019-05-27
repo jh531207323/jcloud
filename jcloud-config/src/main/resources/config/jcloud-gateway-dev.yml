@@ -16,7 +16,7 @@ spring:
       client:
         access-token-uri: http://localhost:${server.port}/auth/oauth/token
         user-authorization-uri: http://localhost:${server.port}/auth/oauth/authorize
-        client-id: "@pom.artifactId@"
+        client-id: jcloud-gateway
       resource:
         #获取当前Token的用户信息
         user-info-uri: http://localhost:${server.port}/auth/current
