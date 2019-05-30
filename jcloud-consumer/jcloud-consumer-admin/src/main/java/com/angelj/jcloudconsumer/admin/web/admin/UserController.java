@@ -1,4 +1,4 @@
-package com.angelj.jcloudconsumer.admin.web;
+package com.angelj.jcloudconsumer.admin.web.admin;
 
 import com.angelj.jcloudprovider.admin.api.service.UserFeignApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,12 @@ import javax.annotation.Resource;
 @RequestMapping("/user")
 public class UserController {
 
-    @Resource
-    UserFeignApi userFeignApi;
-
-    @RequestMapping("login")
-    public String login(@RequestParam String fAccountname, @RequestParam String fPassword)
-    {
-        return userFeignApi.login(fAccountname,fPassword);
-    }
+//    @Resource
+//    UserFeignApi userFeignApi;
+//
+//    @RequestMapping("login")
+//    public String login(@RequestParam String fAccountname, @RequestParam String fPassword)
+//    {
+//        return userFeignApi.login(fAccountname,fPassword);
+//    }
 }

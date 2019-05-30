@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.angelj.jcloudprovider.admin.api"})
+@EnableFeignClients(basePackages = {"com.angelj.jcloudprovider"})
 @EnableHystrix
 public class JcloudConsumerAdminApplication {
 
