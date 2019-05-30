@@ -1,0 +1,41 @@
+server:
+  port: 7001
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: jcloud-consumer-admin
+  security:
+    user:
+      name: root
+      password: root
+  zipkin:
+    base-url: http://localhost:9411
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:root@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}:@pom.version@
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+debug: true
+logging:
+  level:
+    org.springframework.web: debug
+    com.angelj.jcloudprovider: debug
