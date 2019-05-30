@@ -9,8 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jcloud-common</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>jcloud-common</name>
     <description>jcloud</description>
+
+    <modules>
+
+        <module>jcloud-common-util</module>
+    </modules>
 
 </project>
