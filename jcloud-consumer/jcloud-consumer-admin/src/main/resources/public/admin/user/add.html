@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Dashboard</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.4.1-->
+    <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/template/AdminLTE/2.4.10/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/template/AdminLTE/2.4.10/dist/css/skins/_all-skins.min.css">
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="/css/googleapis.css">
+
+    <!--------------------------------->
+    <!-- page specific plugin styles -->
+    <!--------------------------------->
+
+    <link href="/template/AdminLTE/2.4.10/bower_components/PACE/themes/blue/pace-theme-flash.css" rel="stylesheet"/>
+    <link href="/js/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+
+
+    <!-- jqGrid styles -->
+    <!--<link href="/template/AdminLTE/2.4.10/bower_components/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />-->
+    <link href="/js/plugins/jqGrid/5.0.2/ui.jqgrid.min.css" rel="stylesheet"/>
+    <link href="/js/plugins/jqGrid/5.0.2/ui.jqgrid.min.extend.css" rel="stylesheet"/>
+
+
+    <!--<script src="/js/plugins/layer/theme/default/layer.css"></script>-->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/js/plugins/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="/js/plugins/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery 3 -->
+    <script src="/template/AdminLTE/2.4.10/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="/template/AdminLTE/2.4.10/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.4.1 -->
+    <script src="/template/AdminLTE/2.4.10/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/template/AdminLTE/2.4.10/dist/js/adminlte.min.js"></script>
+
+    <!--------------------------------->
+    <!--page specific plugin scripts--->
+    <!--------------------------------->
+    <!--pace scripts-->
+    <script src="/template/AdminLTE/2.4.10/bower_components/PACE/pace.min.js"></script>
+
+    <!--sweetalert scripts-->
+    <script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <!--jqgrid scripts-->
+    <script src="/js/plugins/jqGrid/5.0.2/jquery.jqGrid.min.js"></script>
+    <script src="/js/plugins/jqGrid/5.0.2/grid.locale-en.js"></script>
+
+    <script src="/js/plugins/layer/layer.js"></script>
+
+    <script src="/js/plugins/jquery.form/jquery.form.min.js"></script>
+
+    <!-- inline scripts related to this page -->
+    <script type="text/javascript">
+        //paceOptions = {
+        //    ajax: false, // Monitors all ajax requests on the page
+        //    document: false, // Checks for the existance of specific elements on the page
+        //    eventLag: false, // Checks the document readyState
+        //    elements: {
+        //        selectors: ['.my-page'] // Checks for event loop lag signaling that javascript is being executed
+        //    },
+        //    startOnPageLoad: false
+        //};
+    </script>
+    <style type="text/css">
+        page {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            background: #ffffff;
+        }
+
+        /*pace style*/
+        /*body > :not(.pace), body:before, body:after {
+            -webkit-transition: opacity .4s ease-in-out;
+            -moz-transition: opacity .4s ease-in-out;
+            -o-transition: opacity .4s ease-in-out;
+            -ms-transition: opacity .4s ease-in-out;
+            transition: opacity .4s ease-in-out;
+        }
+
+        body:not(.pace-done) > :not(.pace), body:not(.pace-done):before, body:not(.pace-done):after {
+            opacity: 0;
+        }*/
+
+        /*jqgrid style*/
+
+        .ui-jqgrid .ui-jqgrid-hdiv {
+            line-height: 0px;
+        }
+
+        .ui-jqgrid .ui-jqgrid-htable th span.ui-jqgrid-resize {
+            height: 30px !important;
+        }
+
+        .ui-jqgrid .ui-jqgrid-labels th {
+            text-align: center !important;
+            font-weight: 500 !important;
+        }
+
+        .ui-jqgrid-sortable {
+            font-weight: 500 !important;
+        }
+
+        .ui-jqgrid .ui-jqgrid-pager {
+            height: auto;
+            padding-top: 5px !important;
+            padding-bottom: 5px !important;
+        }
+
+        /*modal style*/
+        .modal-header {
+            padding: 5px 5px 5px 10px;
+        }
+
+        .modal-footer {
+            padding: 5px 5px 5px 10px;
+        }
+
+        .modal-footer button {
+            padding: 1px 6px;
+        }
+    </style>
+
+</head>
+<body class="container-fluid no-margin no-padding">
+<!-- 在这里嵌入main content -->
+
+<header class="main-header">
+
+</header>
+<div class="content-wrapper no-margin">
+    <form id="formMain" class="form-horizontal">
+        <div id="divContent" class="box-body" style="padding: 5px;overflow-y:auto;overflow-x: hidden;border: none;">
+
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-align-center"></i>详细</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i></button>
+                        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i>-->
+                        <!--</button>-->
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="code" class="col-xs-2 control-label">角色编号</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" id="code" name="code" placeholder="code"/>
+                            </div>
+                            <label for="name" class="col-xs-2 control-label">角色名称</label>
+                            <div class="col-xs-4">
+                                <input class="form-control" type="text" id="name" name="name" placeholder="name"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="code" class="col-xs-2 control-label">是否有效</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" id="code" name="code" placeholder="code"/>
+                            </div>
+                            <label for="name" class="col-xs-2 control-label">创建时间</label>
+                            <div class="col-xs-4">
+                                <input class="form-control" type="text" id="name" name="name" placeholder="name"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="col-xs-2 control-label">描述</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" id="description" name="description"
+                                       placeholder="description"/>
+                            </div>
+                            <label for="remark" class="col-xs-2 control-label">备注</label>
+                            <div class="col-xs-4">
+                                <input class="form-control" type="text" id="remark" name="remark" placeholder="remark"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- /.box -->
+        </div>
+    </form>
+</div>
+<!-- /.box -->
+
+<!-- /.content-wrapper -->
+<footer class="main-footer no-margin" style="padding:5px;">
+    <div class="row no-print">
+        <div class="col-xs-12">
+            <button id="btnCancel" type="button" class="btn btn-primary pull-right">
+                <i class="fa fa-close"></i> Cancel
+            </button>
+
+            <button id="btnOk" type="button" class="btn btn-success pull-right" style="margin-right: 5px;">
+                <i class="fa fa-check"></i> Ok
+            </button>
+        </div>
+    </div>
+
+</footer>
+
+<script type="text/javascript">
+
+    //注意：parent 是 JS 自带的全局对象，可用于操作父页面
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+
+    //page resize function ,just use for iframe size will be changed.
+    function pageResize() {
+        parent.layer.iframeAuto(index);
+    }
+
+    //page init
+    $(document).ready(function () {
+        pageResize();
+        $(window).on("resize", function () {
+            pageResize();
+        });
+
+        parent.layer.iframeAuto(index);
+
+        $("#btnOk").click(function () {
+
+            var options = {
+                url: "/security/admin/role/add_role",
+                target: "",   // 把服务器返回的内容放入id为output1的元素中,
+                dataType: "json",   // 接收服务端返回的类型 xml,scrpit,json
+                beforeSubmit: function () { // 提交前的回调函数
+                    //加载层-风格2
+                    layer.load(2);
+                },
+                success: function () { // 提交后的回调函数
+
+                    layer.closeAll('loading');
+
+                }
+            };
+
+            $("#formMain").ajaxSubmit(options);
+
+        });
+
+        $("#btnCancel").click(function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        });
+    });
+</script>
+
+</body>
+</html>

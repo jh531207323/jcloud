@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Dashboard</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.4.1-->
+    <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/template/AdminLTE/2.4.10/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/template/AdminLTE/2.4.10/dist/css/skins/_all-skins.min.css">
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="/css/googleapis.css">
+
+    <!--------------------------------->
+    <!-- page specific plugin styles -->
+    <!--------------------------------->
+
+    <link href="/template/AdminLTE/2.4.10/bower_components/PACE/themes/blue/pace-theme-flash.css" rel="stylesheet"/>
+    <link href="/js/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+
+
+    <!-- jqGrid styles -->
+    <!--<link href="/template/AdminLTE/2.4.10/bower_components/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />-->
+    <link href="/js/plugins/jqGrid/5.0.2/ui.jqgrid.min.css" rel="stylesheet"/>
+    <link href="/js/plugins/jqGrid/5.0.2/ui.jqgrid.min.extend.css" rel="stylesheet"/>
+
+
+    <!--<script src="/js/plugins/layer/theme/default/layer.css"></script>-->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/js/plugins/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="/js/plugins/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery 3 -->
+    <script src="/template/AdminLTE/2.4.10/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="/template/AdminLTE/2.4.10/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.4.1 -->
+    <script src="/template/AdminLTE/2.4.10/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/template/AdminLTE/2.4.10/dist/js/adminlte.min.js"></script>
+
+    <!--------------------------------->
+    <!--page specific plugin scripts--->
+    <!--------------------------------->
+    <!--pace scripts-->
+    <script src="/template/AdminLTE/2.4.10/bower_components/PACE/pace.min.js"></script>
+
+    <!--sweetalert scripts-->
+    <script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <!--jqgrid scripts-->
+    <script src="/js/plugins/jqGrid/5.0.2/jquery.jqGrid.min.js"></script>
+    <script src="/js/plugins/jqGrid/5.0.2/grid.locale-en.js"></script>
+
+    <script src="/js/plugins/layer/layer.js"></script>
+
+    <!-- inline scripts related to this page -->
+    <script type="text/javascript">
+        //paceOptions = {
+        //    ajax: false, // Monitors all ajax requests on the page
+        //    document: false, // Checks for the existance of specific elements on the page
+        //    eventLag: false, // Checks the document readyState
+        //    elements: {
+        //        selectors: ['.my-page'] // Checks for event loop lag signaling that javascript is being executed
+        //    },
+        //    startOnPageLoad: false
+        //};
+    </script>
+    <style type="text/css">
+        page {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            background: #ffffff;
+        }
+
+        /*pace style*/
+        /*body > :not(.pace), body:before, body:after {
+            -webkit-transition: opacity .4s ease-in-out;
+            -moz-transition: opacity .4s ease-in-out;
+            -o-transition: opacity .4s ease-in-out;
+            -ms-transition: opacity .4s ease-in-out;
+            transition: opacity .4s ease-in-out;
+        }
+
+        body:not(.pace-done) > :not(.pace), body:not(.pace-done):before, body:not(.pace-done):after {
+            opacity: 0;
+        }*/
+
+        /*jqgrid style*/
+
+        .ui-jqgrid .ui-jqgrid-hdiv {
+            line-height: 0px;
+        }
+
+        .ui-jqgrid .ui-jqgrid-htable th span.ui-jqgrid-resize {
+            height: 30px !important;
+        }
+
+        .ui-jqgrid .ui-jqgrid-labels th {
+            text-align: center !important;
+            font-weight: 500 !important;
+        }
+
+        .ui-jqgrid-sortable {
+            font-weight: 500 !important;
+        }
+
+        .ui-jqgrid .ui-jqgrid-pager {
+            height: auto;
+            padding-top: 5px !important;
+            padding-bottom: 5px !important;
+        }
+
+        /*modal style*/
+        .modal-header {
+            padding: 5px 5px 5px 10px;
+        }
+
+        .modal-footer {
+            padding: 5px 5px 5px 10px;
+        }
+
+        .modal-footer button {
+            padding: 1px 6px;
+        }
+
+        .box{
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+<body class="container-fluid" style="padding: 3px 3px 0px 3px;">
+<!-- 在这里嵌入main content -->
+<div class="row" id="divSearch">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">搜索栏</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                            class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row no-margin">
+                    <div class="form-inline">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                客户端编号
+                            </span>
+                            <input id="txtName" type="text" class="form-control">
+                        </div>
+
+                        <button id="btnSearch" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                            搜索
+                        </button>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- ./box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+
+<div class="row" id="divContent">
+    <div class="col-md-12">
+        <div class="box" style="margin: 0px;">
+            <div class="box-header with-border">
+                <h3 class="box-title">数据列表</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" id="btnAdd" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>
+                        添加
+                    </button>
+                    <button type="button" id="btnUpdate" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i>
+                        修改
+                    </button>
+                    <button type="button" id="btnDelete" class="btn btn-sm btn-success"><i class="fa fa-remove"></i>
+                        删除
+                    </button>
+
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                            class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="padding: 0px;">
+                <div id="divTable">
+                    <table id="gridTable"></table>
+                    <div id="gridPager"></div>
+                </div>
+            </div>
+            <!-- ./box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+
+<script type="text/javascript">
+
+    //Load Data
+    function LoadGrid() {
+        $("#gridTable").jqGrid({
+            url: "/oauth/oauthclientdetails/page",
+            datatype: "json",
+            mtype: "GET",
+            jsonReader : {
+                root:"result.data",
+                page: "result.pageIndex",
+                total: "result.pageCount",
+                records: "result.dataCount"
+            },
+            prmNames: {
+                page: "pageIndex",
+                rows: "pageSize",
+                sort: "sortName",
+                order: "sortMode",
+                search: "isSearch"
+            },
+            height: 250,
+            sortable: true,
+            sortname: "id",
+            sortorder: "asc",
+            rownumbers: true,
+            styleUI: "jQueryUI",
+            colNames: [
+                "客户端编号",
+                "作用范围",
+                "认证方式",
+                "回调路径",
+            ],
+            colModel: [
+                {
+                    name: "client_id",
+                    index: "client_id",
+                    sortable: true
+                },
+                {
+                    name: "scope",
+                    index: "scope",
+                    sortable: true
+                },
+                {
+                    name: "authorized_grant_types",
+                    index: "authorized_grant_types",
+                    sortable: true
+                },
+                {
+                    name: "web_server_redirect_uri",
+                    index: "web_server_redirect_uri",
+                    sortable: true
+                }
+            ],
+            subGrid: true,//subgrid options
+            //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
+            //datatype: "xml",
+            subGridOptions: {
+                plusicon: "ace-icon glyphicon-plus icon-plus center blue",
+                minusicon: "ace-icon glyphicon-minus center blue",
+                openicon: "ace-icon glyphicon glyphicon-chevron-right center orange"
+            },
+            subGridRowExpanded: function (subgridDivId, rowId) {
+                var subgridTableId = subgridDivId + "_t";
+
+
+                var row = $("#gridTable").jqGrid("getRowData", rowId);
+                //获取列名
+                var colNames = $("#gridTable").jqGrid('getGridParam', 'colNames');
+                //获取列字段
+                var colModel = $("#gridTable").jqGrid('getGridParam', 'colModel');
+
+                var html = [];
+                html.push("<div class='table-detail'>");
+
+                for (var i = 0; i < colModel.length; i++) {
+                    var columnHidden = colModel[i].hidden;
+                    var columnName = colModel[i].name;
+                    if (columnHidden == false && columnName != "rn" && columnName != "subgrid") {
+
+                        html.push("    <div class='row'>");
+                        html.push("        <div class='col-xs-12'>");
+                        html.push("            <span class='green'>" + colNames[i] + ": </span>");
+                        html.push("            <span class='black' style='white-space:normal;'>" + row[colModel[i].name] + "</span>");
+                        html.push("        </div>");
+                        html.push("    </div>");
+                    }
+                }
+
+                html.push("</div>");
+
+                $("#" + subgridDivId).html(html.join(''));
+            },
+
+            viewrecords: true,
+            rowNum: 10,
+            rowList: [10, 20, 50],
+            pager: "#gridPager",
+            altRows: true,
+            multiselect: false,
+            loadComplete: function () {
+                var table = this;
+                setTimeout(function () {
+
+                    updatePagerIcons(table);
+                    enableTooltips(table);
+                }, 0);
+            },
+            loadError: function () {
+
+                var table = this;
+                setTimeout(function () {
+
+                    updatePagerIcons(table);
+                    enableTooltips(table);
+                }, 0);
+
+                swal({
+                    title: "Error",
+                    text: "Load data faild!",
+                    type: "error",
+                    confirmButtonText: "Sure",
+                    closeOnConfirm: true
+                });
+            }
+        });
+    }
+
+    //replace icons with FontAwesome icons like above
+    function updatePagerIcons(table) {
+        var replacement =
+            {
+                'ui-icon-seek-first': 'fa fa-angle-double-left bigger-140',
+                'ui-icon-seek-prev': 'fa fa-angle-left bigger-140',
+                'ui-icon-seek-next': 'fa fa-angle-right bigger-140',
+                'ui-icon-seek-end': 'fa fa-angle-double-right bigger-140'
+            };
+        $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
+            var icon = $(this);
+            var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+
+            if ($class in replacement) icon.attr('class', 'ui-icon ' + replacement[$class]);
+        })
+    }
+
+    function enableTooltips(table) {
+        $('.navtable .ui-pg-button').tooltip({container: 'body'});
+        $(table).find('.ui-pg-div').tooltip({container: 'body'});
+    }
+
+    //page resize function ,just use for iframe size will be changed.
+    function pageResize() {
+        $("#divContent").height($(window).height() - $("#divSearch").outerHeight() - 3);
+
+        $("#divTable").height($("#divContent").height() - $("#divContent .box-header").outerHeight() - 5);
+
+        $("#gridTable").jqGrid("setGridWidth", $("#divTable").width());
+        $("#gridTable").jqGrid("setGridHeight", $("#divTable").height() - $(".ui-jqgrid-hdiv").outerHeight(true) - $("#gridPager").outerHeight(true));
+    }
+
+    //page init
+    $(document).ready(function () {
+        //Search panel event
+        $("#btnSearch").click(function () {
+
+            $("#gridTable").jqGrid("setGridParam",
+                {
+                    postData: {
+                        client_id: $("#txtName").val()
+                    },
+                    page: 1,
+                }
+            ).trigger("reloadGrid");
+        });
+
+        //Load data
+        LoadGrid();
+
+        pageResize();
+        $(window).on("resize", function () {
+            pageResize();
+        });
+
+        $("#btnAdd").click(function () {
+            var index = layer.open({
+                type: 2,
+                title: '添加',
+                maxmin: true,
+                shadeClose: false, //点击遮罩关闭层
+                area: ['770px', '500px'],
+                content: '/oauth/oauthclientdetails/view/add'
+            });
+        });
+
+    });
+</script>
+
+</body>
+</html>
