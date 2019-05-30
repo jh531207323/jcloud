@@ -10,6 +10,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
+        <module>jcloud-auth</module>
         <module>jcloud-common</module>
         <module>jcloud-config</module>
         <module>jcloud-eureka</module>
@@ -38,8 +39,15 @@
         <zipkin-autoconfigure-ui.version>2.9.4</zipkin-autoconfigure-ui.version>
 
         <lombok.version>1.18.8</lombok.version>
+        <jackson-core.version>2.9.9</jackson-core.version>
+        <jackson-annotations.version>2.9.9</jackson-annotations.version>
+        <jackson-databind.version>2.9.9</jackson-databind.version>
         <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
         <mybatis-plus-boot-starter.version>3.1.1</mybatis-plus-boot-starter.version>
+        <mybatis-plus-generator.version>3.1.1</mybatis-plus-generator.version>
+        <velocity-engine-core.version>2.1</velocity-engine-core.version>
+        <beetl.version>3.0.0.M3</beetl.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
     </properties>
 
 </project>
