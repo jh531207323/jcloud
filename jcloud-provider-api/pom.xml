@@ -16,5 +16,6 @@
 
     <modules>
         <module>jcloud-provider-admin-api</module>
+        <module>jcloud-provider-oauth-api</module>
     </modules>
 </project>
