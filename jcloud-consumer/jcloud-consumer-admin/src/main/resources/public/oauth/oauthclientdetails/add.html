@@ -27,6 +27,8 @@
 
     <link href="/template/AdminLTE/2.4.10/bower_components/PACE/themes/blue/pace-theme-flash.css" rel="stylesheet"/>
     <link href="/js/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link href="/template/AdminLTE/2.4.10/plugins/iCheck/all.css" rel="stylesheet" >
 
 
     <!-- jqGrid styles -->
@@ -67,13 +69,17 @@
     <!--sweetalert scripts-->
     <script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
 
+    <!-- iCheck 1.0.1 -->
+    <script src="/template/AdminLTE/2.4.10/plugins/iCheck/icheck.min.js"></script>
+
     <!--jqgrid scripts-->
     <script src="/js/plugins/jqGrid/5.0.2/jquery.jqGrid.min.js"></script>
     <script src="/js/plugins/jqGrid/5.0.2/grid.locale-en.js"></script>
 
     <script src="/js/plugins/layer/layer.js"></script>
 
-    <script src="/js/plugins/jquery.form/jquery.form.min.js"></script>
+    <!-- form.js -->
+    <script src="/js/jh.form.js"></script>
 
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
@@ -169,7 +175,7 @@
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-align-center"></i>详细</h3>
+                    <h3 class="box-title"><i class="fa fa-bars"></i>详细</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -182,36 +188,87 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="code" class="col-xs-2 control-label">角色编号</label>
+                            <label for="client_id" class="col-xs-2 control-label">客户端编号</label>
                             <div class="col-xs-4">
-                                <input type="text" class="form-control" id="code" name="code" placeholder="code"/>
+                                <input type="text" class="form-control" id="client_id" name="client_id"/>
                             </div>
-                            <label for="name" class="col-xs-2 control-label">角色名称</label>
+                            <label for="resource_ids" class="col-xs-2 control-label">资源编号</label>
                             <div class="col-xs-4">
-                                <input class="form-control" type="text" id="name" name="name" placeholder="name"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="code" class="col-xs-2 control-label">是否有效</label>
-                            <div class="col-xs-4">
-                                <input type="text" class="form-control" id="code" name="code" placeholder="code"/>
-                            </div>
-                            <label for="name" class="col-xs-2 control-label">创建时间</label>
-                            <div class="col-xs-4">
-                                <input class="form-control" type="text" id="name" name="name" placeholder="name"/>
+                                <input class="form-control" type="text" id="resource_ids" name="resource_ids"/>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="description" class="col-xs-2 control-label">描述</label>
+                            <label for="client_secret" class="col-xs-2 control-label">客户端密码</label>
                             <div class="col-xs-4">
-                                <input type="text" class="form-control" id="description" name="description"
-                                       placeholder="description"/>
+                                <input type="text" class="form-control" id="client_secret" name="client_secret"/>
                             </div>
-                            <label for="remark" class="col-xs-2 control-label">备注</label>
+                            <label for="scope" class="col-xs-2 control-label">作用范围</label>
                             <div class="col-xs-4">
-                                <input class="form-control" type="text" id="remark" name="remark" placeholder="remark"/>
+                                <input class="form-control" type="text" id="scope" name="scope"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="authorities" class="col-xs-2 control-label">权限</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" id="authorities" name="authorities"/>
+                            </div>
+                            <label for="autoapprove" class="col-xs-2 control-label">自动批准</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" id="autoapprove" name="autoapprove"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="access_token_validity" class="col-xs-2 control-label">访问Token有效性</label>
+                            <div class="col-xs-4">
+                                <input class="form-control" type="text" id="access_token_validity" name="access_token_validity"/>
+                            </div>
+                            <label for="refresh_token_validity" class="col-xs-2 control-label">刷新Token有效性</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" id="refresh_token_validity" name="refresh_token_validity"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="authorized_grant_types" class="col-xs-2 control-label">认证方式</label>
+                            <div class="col-xs-10" id="authorized_grant_types">
+                                <label class="col-xs-2 control-label">
+                                    <input type="checkbox" class="flat-red" value="authorization_code">
+                                    授权码模式
+                                </label>
+                                <label class="col-xs-2 control-label">
+                                    <input type="checkbox" class="flat-red" value="implicit">
+                                    简化模式
+                                </label>
+                                <label class="col-xs-2 control-label">
+                                    <input type="checkbox" class="flat-red" value="password">
+                                    密码模式
+                                </label>
+                                <label class="col-xs-2 control-label">
+                                    <input type="checkbox" class="flat-red" value="client_credentials">
+                                    客户端模式
+                                </label>
+                                <label class="col-xs-2 control-label">
+                                    <input type="checkbox" class="flat-red" value="refresh_token">
+                                    更新Token
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="web_server_redirect_uri" class="col-xs-2 control-label">回调路径</label>
+                            <div class="col-xs-10">
+                                <input class="form-control" type="text" id="web_server_redirect_uri" name="web_server_redirect_uri"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additional_information" class="col-xs-2 control-label">附加信息</label>
+                            <div class="col-xs-10">
+                                <input class="form-control" type="text" id="additional_information" name="additional_information"/>
                             </div>
                         </div>
                     </div>
@@ -260,24 +317,24 @@
 
         parent.layer.iframeAuto(index);
 
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-blue',
+            radioClass   : 'iradio_flat-blue'
+        });
+
         $("#btnOk").click(function () {
 
-            var options = {
-                url: "/security/admin/role/add_role",
-                target: "",   // 把服务器返回的内容放入id为output1的元素中,
-                dataType: "json",   // 接收服务端返回的类型 xml,scrpit,json
-                beforeSubmit: function () { // 提交前的回调函数
-                    //加载层-风格2
-                    layer.load(2);
+            submitForm({
+                url: "/oauth/oauthclientdetails/add",
+                formId: "formMain",
+                successCallBack: function (data) {
+                    $("#btnCancel").trigger("click");
                 },
-                success: function () { // 提交后的回调函数
-
-                    layer.closeAll('loading');
+                failCallBack: function (data) {
 
                 }
-            };
-
-            $("#formMain").ajaxSubmit(options);
+            });
 
         });
 

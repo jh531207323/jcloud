@@ -40,12 +40,12 @@ public class OauthClientDetailsController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add")
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public DataWrapper add(@RequestBody OauthClientDetailsDto oauthClientDetailsDto) {
         return oauthClientDetailsFeignApi.add(oauthClientDetailsDto);
     }
 
-    @RequestMapping(value = "/update")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public DataWrapper update(@RequestBody OauthClientDetailsDto oauthClientDetailsDto) {
         return oauthClientDetailsFeignApi.update(oauthClientDetailsDto);
     }
