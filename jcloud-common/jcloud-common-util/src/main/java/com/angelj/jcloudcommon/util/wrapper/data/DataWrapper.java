@@ -35,15 +35,15 @@ public class DataWrapper<T> implements Serializable {
     private String message;
     private T result;
 
-    DataWrapper() {
+    public DataWrapper() {
         this(SUCCESS_CODE, SUCCESS_MESSAGE);
     }
 
-    DataWrapper(int code, String message) {
+    public DataWrapper(int code, String message) {
         this(code, message, null);
     }
 
-    DataWrapper(int code, String message, T result) {
+    public DataWrapper(int code, String message, T result) {
         super();
         this.code(code).message(message).result(result);
     }
