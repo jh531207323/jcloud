@@ -2,6 +2,7 @@ package com.angelj.jcloudconsumer.admin.web.oauth;
 
 import com.angelj.jcloudcommon.util.wrapper.data.DataWrapper;
 import com.angelj.jcloudcommon.util.wrapper.data.PageDataWrapper;
+import com.angelj.jcloudconsumer.admin.exception.support.handler.JcloudBaseExceptionHandler;
 import com.angelj.jcloudprovider.oauth.api.model.dto.OauthClientDetailsDto;
 import com.angelj.jcloudprovider.oauth.api.model.vo.OauthClientDetailsVo;
 import com.angelj.jcloudprovider.oauth.api.service.OauthClientDetailsFeignApi;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/oauth/oauthclientdetails")
-public class OauthClientDetailsController {
+public class OauthClientDetailsController extends JcloudBaseExceptionHandler {
 
     private String viewFolder = "oauth/oauthclientdetails/";
 
@@ -34,6 +35,7 @@ public class OauthClientDetailsController {
 
     @RequestMapping("/view/add")
     public ModelAndView add() {
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(getViewPath("add"));
 

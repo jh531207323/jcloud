@@ -1,4 +1,4 @@
-package com.angelj.jcloudconsumer.admin.config.error;
+package com.angelj.jcloudconsumer.admin.exception.support.controller;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -13,7 +13,9 @@ import java.util.List;
 public class JcloudErrorConfiguration {
 
     @Bean
-    public JcloudBasicErrorController jcloudBasicErrorController(ErrorAttributes errorAttributes, ServerProperties serverProperties, ObjectProvider<List<ErrorViewResolver>> errorViewResolversProvider) {
+    public JcloudBasicErrorController jcloudBasicErrorController(ErrorAttributes errorAttributes,
+                                                                 ServerProperties serverProperties,
+                                                                 ObjectProvider<List<ErrorViewResolver>> errorViewResolversProvider) {
         return new JcloudBasicErrorController(errorAttributes, serverProperties.getError(), errorViewResolversProvider.getIfAvailable());
     }
 }
