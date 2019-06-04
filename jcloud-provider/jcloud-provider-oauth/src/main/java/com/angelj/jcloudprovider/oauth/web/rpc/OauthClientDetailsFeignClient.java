@@ -26,9 +26,28 @@ public class OauthClientDetailsFeignClient implements OauthClientDetailsFeignApi
     OauthClientDetailsService oauthClientDetailsService;
 
     @Override
+    public DataWrapper check(OauthClientDetailsDto oauthClientDetailsDto) {
+        OauthClientDetails oauthClientDetails = new OauthClientDetails();
+        BeanUtils.copyProperties(oauthClientDetailsDto, oauthClientDetails);
+
+        QueryWrapper<OauthClientDetails> queryWrapper = new QueryWrapper<>();
+
+        if (StringUtils.isNotEmpty(oauthClientDetailsDto.getClient_id())) {
+            queryWrapper.lambda().eq(OauthClientDetails::getClient_id, oauthClientDetailsDto.getClient_id());
+        }
+
+        int count = oauthClientDetailsService.count(queryWrapper);
+        if (count > 0) {
+            return HandleResultMapper.wrapFailed("该对象已存在");
+        } else {
+            return HandleResultMapper.wrapSuccess();
+        }
+    }
+
+    @Override
     public DataWrapper add(OauthClientDetailsDto oauthClientDetailsDto) {
 
-        OauthClientDetails oauthClientDetails = null;
+        OauthClientDetails oauthClientDetails = new OauthClientDetails();
         BeanUtils.copyProperties(oauthClientDetailsDto, oauthClientDetails);
 
         boolean flag = oauthClientDetailsService.save(oauthClientDetails);

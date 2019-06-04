@@ -1,5 +1,6 @@
 package com.angelj.jcloudprovider.oauth.api.service.hystrix;
 
+import com.angelj.jcloudcommon.util.wrapper.data.HandleResultMapper;
 import com.angelj.jcloudcommon.util.wrapper.data.PageDataWrapper;
 import com.angelj.jcloudcommon.util.wrapper.data.DataWrapper;
 import com.angelj.jcloudprovider.oauth.api.model.dto.OauthClientDetailsDto;
@@ -12,27 +13,32 @@ import java.util.List;
 @Component
 public class OauthClientDetailsFeignHystrix implements OauthClientDetailsFeignApi {
     @Override
+    public DataWrapper check(OauthClientDetailsDto oauthClientDetailsDto) {
+        return HandleResultMapper.wrapFailed();
+    }
+
+    @Override
     public DataWrapper add(OauthClientDetailsDto oauthClientDetailsDto) {
-        return null;
+        return HandleResultMapper.wrapFailed();
     }
 
     @Override
     public DataWrapper update(OauthClientDetailsDto oauthClientDetailsDto) {
-        return null;
+        return HandleResultMapper.wrapFailed();
     }
 
     @Override
     public DataWrapper delete(List<String> idList) {
-        return null;
+        return HandleResultMapper.wrapFailed();
     }
 
     @Override
     public DataWrapper get(String id) {
-        return null;
+        return HandleResultMapper.wrapFailed();
     }
 
     @Override
     public DataWrapper page(PageDataWrapper<OauthClientDetailsVo> pageDataWrapper) {
-        return null;
+        return HandleResultMapper.wrapFailed();
     }
 }

@@ -44,12 +44,14 @@ function submitForm(settings) {
         method: "POST",
         formId: null,
         postData: null,
-        isCache: false,
-        isAsync: true,
+        cache: false,
+        async: true,
+        beforeSendAction: null,
+        completeAction: null,
         successCallBack: null,
         failCallBack: null,
-        isShowSuccessInfo: true,
-        isShowErrorInfo: true,
+        showSuccessInfo: true,
+        showErrorInfo: true,
     };
 
     $.extend(defaultSetting, settings);
@@ -67,26 +69,44 @@ function submitForm(settings) {
         url: defaultSetting.url,
         type: defaultSetting.method,
         data: defaultSetting.postData,
-        cache: defaultSetting.isCache,
-        async: defaultSetting.isAsync,
+        cache: defaultSetting.cache,
+        async: defaultSetting.async,
         contentType: "application/json;charset=UTF-8",
         beforeSend: function (event, xhr, options) {
 
             loadingIndex = layer.load(1, {
                 shade: [0.5,'#232D37'] //0.1透明度的白色背景
             });
+
+            if (defaultSetting.beforeSendAction != null) {
+                defaultSetting.beforeSendAction(event, xhr, options);
+            }
         },
         complete: function (event, xhr, options) {
             layer.close(loadingIndex);
+
+            if (defaultSetting.completeAction != null) {
+                defaultSetting.completeAction(event, xhr, options);
+            }
         },
         success: function (responseText) {
 
-            var jsonData = JSON.stringify(responseText);
+            var jsonData;
+
+            //判断是否为JSON对象
+            if(typeof(responseText) == "object" &&
+                Object.prototype.toString.call(responseText).toLowerCase() == "[object object]" &&
+                !responseText.length){
+                jsonData = responseText;
+            }
+            else {
+                jsonData = JSON.parse(responseText);
+            }
 
             if (jsonData) {
-                if (jsonData.statusCode == 200) {
+                if (jsonData.code == 200) {
 
-                    if (defaultSetting.isShowSuccessInfo) {
+                    if (defaultSetting.showSuccessInfo) {
                         swal({
                             title: "提示",
                             text: jsonData.message,
@@ -104,7 +124,7 @@ function submitForm(settings) {
                 }
                 else {
 
-                    if (defaultSetting.isShowErrorInfo) {
+                    if (defaultSetting.showErrorInfo) {
                         swal({
                             title: "警告",
                             text: jsonData.message,
@@ -121,7 +141,7 @@ function submitForm(settings) {
                     return;
                 }
 
-                if (defaultSetting.isShowErrorInfo) {
+                if (defaultSetting.showErrorInfo) {
                     swal({
                         title: "错误",
                         text: responseText,
@@ -152,19 +172,26 @@ function submitForm(settings) {
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
+
+            var message = xhr.responseText;
+
+            var jsonData = JSON.parse(xhr.responseText);
+
+            if (jsonData) {
+                message = jsonData.message;
+            }
+
             swal({
                 title: "错误",
-                text: "<div>Http status: " + xhr.status + " " + xhr.statusText + "</div>"
-                + "<div>ajaxOptions: " + ajaxOptions + "</div>"
-                + "<div>thrownError: " + thrownError + "</div>"
-                + "<div>" + xhr.responseText + "</div>",
+                text: message,
                 type: "error",
                 confirmButtonText: "确定",
-                closeOnConfirm: true,
-                html: true
+                closeOnConfirm: true
             });
         },
-        statusCode: {}
+        statusCode: {
+
+        }
     });
 };
 
@@ -192,12 +219,12 @@ function submitFormFile(url, method, formId, successCallBack, failCallBack) {
                 json = {};
             }
 
-            if (json.statusCode == 200) {
+            if (json.code == 200) {
                 if (successCallBack != null) {
                     successCallBack(json.data);
                 }
             }
-            else if (json.statusCode == 300) {
+            else if (json.code == 300) {
                 swal({
                     title: "警告",
                     text: json.message,
@@ -210,7 +237,7 @@ function submitFormFile(url, method, formId, successCallBack, failCallBack) {
                     failCallBack(json.data);
                 }
             }
-            else if (json.statusCode == 301) {
+            else if (json.code == 301) {
                 swal({
                     title: "错误",
                     text: json.message,

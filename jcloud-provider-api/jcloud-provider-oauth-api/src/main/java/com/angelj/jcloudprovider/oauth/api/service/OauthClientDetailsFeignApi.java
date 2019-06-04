@@ -14,6 +14,9 @@ import java.util.List;
 @FeignClient(value = "jcloud-provider-oauth", fallback = OauthClientDetailsFeignHystrix.class,configuration = FeignConfiguration.class)
 public interface OauthClientDetailsFeignApi {
 
+    @RequestMapping(value = "api/oauthclientdetails/check", method = RequestMethod.POST)
+    DataWrapper check(@RequestBody OauthClientDetailsDto oauthClientDetailsDto);
+
     @RequestMapping(value = "api/oauthclientdetails/add", method = RequestMethod.POST)
     DataWrapper add(@RequestBody OauthClientDetailsDto oauthClientDetailsDto);
 

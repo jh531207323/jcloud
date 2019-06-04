@@ -42,9 +42,21 @@ public class OauthClientDetailsController extends JcloudBaseExceptionHandler {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
+    public DataWrapper check(@RequestBody OauthClientDetailsDto oauthClientDetailsDto) {
+        return oauthClientDetailsFeignApi.check(oauthClientDetailsDto);
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public DataWrapper add(@RequestBody OauthClientDetailsDto oauthClientDetailsDto) {
-        return oauthClientDetailsFeignApi.add(oauthClientDetailsDto);
+
+        DataWrapper dataWrapper = oauthClientDetailsFeignApi.check(oauthClientDetailsDto);
+        if(dataWrapper.sucess())
+        {
+            dataWrapper = oauthClientDetailsFeignApi.add(oauthClientDetailsDto);
+        }
+
+        return dataWrapper;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
