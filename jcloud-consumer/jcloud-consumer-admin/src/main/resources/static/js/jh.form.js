@@ -18,14 +18,57 @@
     });
 });
 
-function serializeArrayToJsonObject(serializeArray)
-{
+function serializeArrayToJsonObject(serializeArray) {
     var jsonOjbject = {};//声明一个对象
-    $.each(serializeArray,function(index,field){
+    $.each(serializeArray, function (index, field) {
         jsonOjbject[field.name] = field.value;//通过变量，将属性值，属性一起放到对象中
     });
 
     return jsonOjbject;
+}
+
+function fillJsonToForm(formId, jsonData) {
+    var form = $("#" + formId);
+    $.each(jsonData, function (index, item) {
+
+
+        //判断标签类型，根据不同的标签不同的赋值方式
+        var $control = form.find("[name=" + index + "]");
+        if ($control != null && $control.length > 0) {
+            var controlType = form.find("[name=" + index + "]")[0].type;
+
+            if (controlType == "text") {
+                form.find("[name=" + index + "]").val(item);
+            }
+            else if (controlType == "select-one") {
+                $control.select2("val", "");
+
+                if (item != null) {
+                    var itemArray = item.split(",");
+                    $control.select2("val", itemArray);
+                }
+            }
+            else if (controlType == "select-multiple") {
+                $control.select2("val", "");
+
+                if (item != null) {
+                    var itemArray = item.split(",");
+                    $control.select2("val", itemArray);
+                }
+            } else if (controlType == "checkbox") {
+                $control.iCheck('uncheck');
+
+                var itemArray = item.split(",");
+                $.each(itemArray, function (index, item) {
+                    for (var i = 0; i < $control.length; i++) {
+                        if ($($control[i]).attr("value") == item) {
+                            $($control[i]).iCheck("check");
+                        }
+                    }
+                });
+            }
+        }
+    });
 }
 
 function getModel(settings) {
@@ -75,7 +118,7 @@ function submitForm(settings) {
         beforeSend: function (event, xhr, options) {
 
             loadingIndex = layer.load(1, {
-                shade: [0.5,'#232D37'] //0.1透明度的白色背景
+                shade: [0.5, '#232D37'] //0.1透明度的白色背景
             });
 
             if (defaultSetting.beforeSendAction != null) {
@@ -94,9 +137,9 @@ function submitForm(settings) {
             var jsonData;
 
             //判断是否为JSON对象
-            if(typeof(responseText) == "object" &&
+            if (typeof(responseText) == "object" &&
                 Object.prototype.toString.call(responseText).toLowerCase() == "[object object]" &&
-                !responseText.length){
+                !responseText.length) {
                 jsonData = responseText;
             }
             else {
@@ -114,10 +157,10 @@ function submitForm(settings) {
                             confirmButtonText: "确定",
                             closeOnConfirm: true
                         });
+                    }
 
-                        if (defaultSetting.successCallBack != null) {
-                            defaultSetting.successCallBack(jsonData.result);
-                        }
+                    if (defaultSetting.successCallBack != null) {
+                        defaultSetting.successCallBack(jsonData.result);
                     }
 
                     return;
@@ -132,10 +175,10 @@ function submitForm(settings) {
                             confirmButtonText: "确定",
                             closeOnConfirm: true
                         });
+                    }
 
-                        if (defaultSetting.failCallBack != null) {
-                            defaultSetting.failCallBack(jsonData.result);
-                        }
+                    if (defaultSetting.failCallBack != null) {
+                        defaultSetting.failCallBack(jsonData.result);
                     }
 
                     return;
@@ -149,13 +192,13 @@ function submitForm(settings) {
                         confirmButtonText: "确定",
                         closeOnConfirm: true
                     });
-
-                    if (defaultSetting.failCallBack != null) {
-                        defaultSetting.failCallBack(jsonData.result);
-                    }
-
-                    return;
                 }
+
+                if (defaultSetting.failCallBack != null) {
+                    defaultSetting.failCallBack(jsonData.result);
+                }
+
+                return;
             }
             else {
                 swal({
@@ -189,9 +232,7 @@ function submitForm(settings) {
                 closeOnConfirm: true
             });
         },
-        statusCode: {
-
-        }
+        statusCode: {}
     });
 };
 

@@ -51,8 +51,7 @@ public class OauthClientDetailsController extends JcloudBaseExceptionHandler {
     public DataWrapper add(@RequestBody OauthClientDetailsDto oauthClientDetailsDto) {
 
         DataWrapper dataWrapper = oauthClientDetailsFeignApi.check(oauthClientDetailsDto);
-        if(dataWrapper.sucess())
-        {
+        if (dataWrapper.sucess()) {
             dataWrapper = oauthClientDetailsFeignApi.add(oauthClientDetailsDto);
         }
 
@@ -70,13 +69,13 @@ public class OauthClientDetailsController extends JcloudBaseExceptionHandler {
     }
 
     @RequestMapping(value = "/get/{id}")
-    public DataWrapper get(@PathVariable("idList")  List<String> idList){
-        return oauthClientDetailsFeignApi.delete(idList);
+    public DataWrapper get(@PathVariable("id") String id) {
+        return oauthClientDetailsFeignApi.get(id);
     }
 
 
     @RequestMapping(value = "/page")
-    public DataWrapper page(PageDataWrapper<OauthClientDetailsVo> pageDataWrapper,OauthClientDetailsVo oauthClientDetailsVo) {
+    public DataWrapper page(PageDataWrapper<OauthClientDetailsVo> pageDataWrapper, OauthClientDetailsVo oauthClientDetailsVo) {
         pageDataWrapper.setQueryObject(oauthClientDetailsVo);
         return oauthClientDetailsFeignApi.page(pageDataWrapper);
     }

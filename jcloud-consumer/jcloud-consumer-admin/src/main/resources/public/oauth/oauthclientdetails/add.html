@@ -18,6 +18,7 @@
     <!--------------------------------->
 
     <link href="/template/AdminLTE/2.4.10/bower_components/PACE/themes/blue/pace-theme-flash.css" rel="stylesheet"/>
+    <!-- sweetalert -->
     <link href="/js/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
     <!-- iCheck for checkboxes and radio inputs -->
     <link href="/template/AdminLTE/2.4.10/plugins/iCheck/all.css" rel="stylesheet" >
@@ -269,23 +270,23 @@
                             <label for="divAuthorizedGrantTypes" class="col-xs-2 control-label">认证方式</label>
                             <div class="col-xs-10" id="divAuthorizedGrantTypes">
                                 <label class="col-xs-2 control-label">
-                                    <input type="checkbox" class="flat-red" name="authorized_grant_types" value="authorization_code">
+                                    <input type="checkbox" class="flat-red" name="authorized_grant_types[]" value="authorization_code">
                                     授权码模式
                                 </label>
                                 <label class="col-xs-2 control-label">
-                                    <input type="checkbox" class="flat-red" name="authorized_grant_types" value="implicit">
+                                    <input type="checkbox" class="flat-red" name="authorized_grant_types[]" value="implicit">
                                     简化模式
                                 </label>
                                 <label class="col-xs-2 control-label">
-                                    <input type="checkbox" class="flat-red" name="authorized_grant_types" value="password">
+                                    <input type="checkbox" class="flat-red" name="authorized_grant_types[]" value="password">
                                     密码模式
                                 </label>
                                 <label class="col-xs-2 control-label">
-                                    <input type="checkbox" class="flat-red" name="authorized_grant_types" value="client_credentials">
+                                    <input type="checkbox" class="flat-red" name="authorized_grant_types[]" value="client_credentials">
                                     客户端模式
                                 </label>
                                 <label class="col-xs-2 control-label">
-                                    <input type="checkbox" class="flat-red" name="authorized_grant_types" value="refresh_token">
+                                    <input type="checkbox" class="flat-red" name="authorized_grant_types[]" value="refresh_token">
                                     更新Token
                                 </label>
                             </div>
@@ -320,11 +321,11 @@
     <div class="row no-print">
         <div class="col-xs-12">
             <button id="btnCancel" type="button" class="btn btn-primary pull-right">
-                <i class="fa fa-close"></i> Cancel
+                <i class="fa fa-close"></i> 取消
             </button>
 
             <button id="btnOk" type="button" class="btn btn-success pull-right" style="margin-right: 5px;">
-                <i class="fa fa-check"></i> Ok
+                <i class="fa fa-check"></i> 保存
             </button>
         </div>
     </div>
@@ -338,7 +339,7 @@
 
     //page resize function ,just use for iframe size will be changed.
     function pageResize() {
-        parent.layer.iframeAuto(index);
+        //parent.layer.iframeAuto(index);
     }
 
     function validationForm() {
@@ -452,14 +453,17 @@
         });
     }
 
+    var operationId;
+    var operationType;
+
     //page init
     $(document).ready(function () {
-        pageResize();
+        //pageResize();
         $(window).on("resize", function () {
             pageResize();
         });
 
-        parent.layer.iframeAuto(index);
+        //parent.layer.iframeAuto(index);
 
         //Flat red color scheme for iCheck
         $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
@@ -473,6 +477,37 @@
         //验证表单
         validationForm();
 
+        //判断操作类型
+        var operationId = getUrlParam("id");
+        if(operationId)
+        {
+            operationType = "update";
+
+            //获取数据
+            getModel({
+                url: "/oauth/oauthclientdetails/get/" + operationId,
+                showSuccessInfo: false,
+                beforeSendAction: function () {
+                    $("#btnOk").addClass("disabled").attr("disabled", true);
+                },
+                completeAction: function () {
+
+                },
+                successCallBack: function (data) {
+                    $("#btnOk").removeClass("disabled").attr("disabled", false);
+
+                    //填充表单
+                    fillJsonToForm("formMain", data);
+                },
+                failCallBack: function (data) {
+
+                }
+            });
+        }
+        else {
+            operationType = "add";
+        }
+
         $("#btnOk").click(function () {
 
             /*手动验证表单，当是普通按钮时。*/
@@ -481,9 +516,16 @@
                 return;
             }
 
+            var operationUrl = "/oauth/oauthclientdetails/add";
+            if(operationType == "update")
+            {
+                operationUrl = "/oauth/oauthclientdetails/update";
+            }
+
             submitForm({
-                url: "/oauth/oauthclientdetails/add",
+                url: operationUrl,
                 formId: "formMain",
+                showSuccessInfo: false,
                 beforeSendAction: function () {
                     $("#btnOk").addClass("disabled").attr("disabled", true);
                 },
@@ -491,7 +533,16 @@
                     $("#btnOk").removeClass("disabled").attr("disabled", false);
                 },
                 successCallBack: function (data) {
-                    $("#btnCancel").trigger("click");
+                    swal({
+                        title: "提示",
+                        text: "保存成功",
+                        type: "success",
+                        confirmButtonText: "确定",
+                        closeOnConfirm: true
+                    }, function () {
+
+                        $("#btnCancel").trigger("click");
+                    });
                 },
                 failCallBack: function (data) {
 

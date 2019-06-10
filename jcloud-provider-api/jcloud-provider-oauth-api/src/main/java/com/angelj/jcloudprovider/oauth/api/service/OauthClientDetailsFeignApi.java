@@ -27,7 +27,7 @@ public interface OauthClientDetailsFeignApi {
     DataWrapper delete(@RequestParam("idList") List<String> idList);
 
     @RequestMapping(value = "api/oauthclientdetails/get/{id}", method = RequestMethod.POST)
-    DataWrapper get(@PathVariable("idList") String id);
+    DataWrapper get(@PathVariable("id") String id);
 
     @RequestMapping(value = "api/oauthclientdetails/page", method = RequestMethod.POST)
     DataWrapper page(@RequestBody PageDataWrapper<OauthClientDetailsVo> pageDataWrapper);
