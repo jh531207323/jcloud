@@ -21,7 +21,15 @@
 function serializeArrayToJsonObject(serializeArray) {
     var jsonOjbject = {};//声明一个对象
     $.each(serializeArray, function (index, field) {
-        jsonOjbject[field.name] = field.value;//通过变量，将属性值，属性一起放到对象中
+
+        //通过变量，将属性值，属性一起放到对象中
+        //如何存在则叠加值
+        if (jsonOjbject[field.name]) {
+            jsonOjbject[field.name] = jsonOjbject[field.name] + "," + field.value;
+        }
+        else {
+            jsonOjbject[field.name] = field.value;
+        }
     });
 
     return jsonOjbject;
@@ -35,11 +43,12 @@ function fillJsonToForm(formId, jsonData) {
         //判断标签类型，根据不同的标签不同的赋值方式
         var $control = form.find("[name=" + index + "]");
         if ($control != null && $control.length > 0) {
-            var controlType = form.find("[name=" + index + "]")[0].type;
+            var controlType = form.find("[name='" + index + "']")[0].type;
 
+            //文本框
             if (controlType == "text") {
                 form.find("[name=" + index + "]").val(item);
-            }
+            }//单选下拉框
             else if (controlType == "select-one") {
                 $control.select2("val", "");
 
@@ -47,7 +56,7 @@ function fillJsonToForm(formId, jsonData) {
                     var itemArray = item.split(",");
                     $control.select2("val", itemArray);
                 }
-            }
+            }//多选下拉框
             else if (controlType == "select-multiple") {
                 $control.select2("val", "");
 
@@ -55,17 +64,25 @@ function fillJsonToForm(formId, jsonData) {
                     var itemArray = item.split(",");
                     $control.select2("val", itemArray);
                 }
-            } else if (controlType == "checkbox") {
+            }//复选框
+            else if (controlType == "checkbox") {
                 $control.iCheck('uncheck');
 
-                var itemArray = item.split(",");
-                $.each(itemArray, function (index, item) {
-                    for (var i = 0; i < $control.length; i++) {
-                        if ($($control[i]).attr("value") == item) {
-                            $($control[i]).iCheck("check");
+                //查找对应控件
+
+                if (item != null) {
+
+                    var itemArray = item.split(",");
+                    $.each(itemArray, function (index, item) {
+
+                        for (var i = 0; i < $control.length; i++) {
+                            if ($($control[i]).attr("value") == item) {
+                                $($control[i]).iCheck("check");
+                                break;
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
     });
