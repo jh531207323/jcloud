@@ -206,131 +206,27 @@
                 <!-- /.box-header -->
                 <form class="form-horizontal">
                     <div class="box-body">
-                        <div class="form-group">
-                            <label for="client_id" class="col-xs-2 control-label">客户端编号</label>
-                            <div class="col-xs-4">
-                                <input type="text" class="form-control" id="client_id" name="client_id"
-                                       data-toggle="tooltip" title="主键,必须唯一,不能为空.用于唯一标识每一个客户端"/>
-                            </div>
-                            <label for="resource_ids" class="col-xs-2 control-label">资源编号</label>
-                            <div class="col-xs-4">
-                                <input class="form-control" type="text" id="resource_ids" name="resource_ids"
-                                       data-toggle="tooltip"
-                                       title="客户端所能访问的资源id集合,多个资源时用逗号(,)分隔,如: 'unity-resource,mobile-resource'"/>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="client_secret" class="col-xs-2 control-label">客户端密码</label>
-                            <div class="col-xs-4">
-                                <input type="text" class="form-control" id="client_secret" name="client_secret"
-                                       data-toggle="tooltip" title="指定客户端(client)的访问密匙"/>
-                            </div>
-                            <label for="scope" class="col-xs-2 control-label">作用范围</label>
-                            <div class="col-xs-4">
-                                <select class="form-control select2" style="width: 100%;" multiple="multiple" id="scope"
-                                        name="scope" data-toggle="tooltip" title="指定客户端申请的权限范围"/>
-                                <option selected="selected">read</option>
-                                <option>write</option>
-                                <option>trust</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="authorities" class="col-xs-2 control-label">权限</label>
-                            <div class="col-xs-4">
-                                <input type="text" class="form-control" id="authorities" name="authorities"
-                                       data-toggle="tooltip"
-                                       title="指定客户端所拥有的Spring Security的权限值,可选, 若有多个权限值,用逗号(,)分隔, 如: 'ROLE_UNITY,ROLE_USER'. "/>
-                            </div>
-                            <label for="autoapprove" class="col-xs-2 control-label">自动批准</label>
-                            <div class="col-xs-4">
-                                <select class="form-control select2" style="width: 100%;" id="autoapprove"
-                                        name="autoapprove" data-toggle="tooltip"
-                                        title="设置用户是否自动Approval操作, 默认值为 'false', 可选值包括 'true','false', 'read','write'.该字段只适用于grant_type='authorization_code'的情况.">
-                                    <option selected="selected">false</option>
-                                    <option>true</option>
-                                    <option>read</option>
-                                    <option>write</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="access_token_validity" class="col-xs-2 control-label">访问Token有效期</label>
-                            <div class="col-xs-4">
-                                <div class="input-group">
-                                    <input class="form-control" type="text" id="access_token_validity"
-                                           name="access_token_validity" data-toggle="tooltip"
-                                           title="设定客户端的access_token的有效时间值(单位:秒),可选, 若不设定值则使用默认的有效时间值(60 * 60 * 12, 12小时). "
-                                           value="43200"/>
-                                    <span class="input-group-addon">
-                                        <label for="access_token_validity">秒</label>
-                                    </span>
-                                </div>
-                            </div>
-                            <label for="refresh_token_validity" class="col-xs-2 control-label">刷新Token有效期</label>
-                            <div class="col-xs-4">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="refresh_token_validity"
-                                           name="refresh_token_validity" data-toggle="tooltip"
-                                           title="设定客户端的refresh_token的有效时间值(单位:秒),可选, 若不设定值则使用默认的有效时间值(60 * 60 * 24 * 30, 30天). "
-                                           value="2592000"/>
-                                    <span class="input-group-addon">
-                                        <label for="access_token_validity">秒</label>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="divAuthorizedGrantTypes" class="col-xs-2 control-label">认证方式</label>
-                            <div class="col-xs-10" id="divAuthorizedGrantTypes">
-                                <label class="col-xs-2 control-label">
-                                    <input type="checkbox" class="flat-red" name="authorized_grant_types"
-                                           value="authorization_code">
-                                    授权码模式
-                                </label>
-                                <label class="col-xs-2 control-label">
-                                    <input type="checkbox" class="flat-red" name="authorized_grant_types"
-                                           value="implicit">
-                                    简化模式
-                                </label>
-                                <label class="col-xs-2 control-label">
-                                    <input type="checkbox" class="flat-red" name="authorized_grant_types"
-                                           value="password">
-                                    密码模式
-                                </label>
-                                <label class="col-xs-2 control-label">
-                                    <input type="checkbox" class="flat-red" name="authorized_grant_types"
-                                           value="client_credentials">
-                                    客户端模式
-                                </label>
-                                <label class="col-xs-2 control-label">
-                                    <input type="checkbox" class="flat-red" name="authorized_grant_types"
-                                           value="refresh_token">
-                                    更新Token
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="web_server_redirect_uri" class="col-xs-2 control-label">回调路径</label>
+                        <div class="form-group" hidden>
+                            <label for="id" class="col-xs-2 control-label">主键</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="text" id="web_server_redirect_uri"
-                                       name="web_server_redirect_uri" data-toggle="tooltip"
-                                       title="客户端的重定向URI,可为空, 当grant_type为authorization_code或implicit时, 在Oauth的流程中会使用并检查与注册时填写的redirect_uri是否一致."/>
+                                <input type="text" class="form-control" id="id" name="id"/>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="additional_information" class="col-xs-2 control-label">附加信息(JSON格式)</label>
+                            <label for="userGroupCode" class="col-xs-2 control-label">用户组编号</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="text" id="additional_information"
-                                       name="additional_information" data-toggle="tooltip"
-                                       title="这是一个预留的字段,在Oauth的流程中没有实际的使用,可选,但若设置值,必须是JSON格式的数据"/>
+                                <input type="text" class="form-control" id="userGroupCode" name="userGroupCode"
+                                       data-toggle="tooltip" title="主键,必须唯一,不能为空."/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="userGroupName" class="col-xs-2 control-label">用户组名称</label>
+                            <div class="col-xs-10">
+                                <input class="form-control" type="text" id="userGroupName" name="userGroupName"
+                                       data-toggle="tooltip" title="用户组名称"/>
                             </div>
                         </div>
                     </div>
@@ -379,32 +275,7 @@
             excluded: ":disabled",   // <=== Adding the 'excluded' option
             fields: {
 
-                client_id: {
-                    validators: {
-                        notEmpty: {
-                            message: "必填项."
-                        },
-                        stringLength: {
-                            min: 5,
-                            max: 30,
-                            message: "长度大于5位并且小于30位."
-                        },
-                        regexp: {
-                            regexp: /^[a-zA-Z0-9_\-]+$/,
-                            message: "只能由字母、数字、下划线、横线."
-                        },
-//                        remote: {
-//                            url: '/oauth/oauthclientdetails/check',//验证地址,后台需要返回{"valid":true}格式
-//                            message: '已存在',//提示消息
-//                            delay :  2000,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
-//                            type: 'POST'//请求方式
-//                        },
-                    }
-                },
-                resource_ids: {
-                    validators: {}
-                },
-                client_secret: {
+                userGroupCode: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -420,51 +291,19 @@
                         }
                     }
                 },
-                scope: {
-                    validators: {}
-                },
-                autoapprove: {
-                    validators: {}
-                },
-                access_token_validity: {
+                userGroupName: {
                     validators: {
-                        digits: {
-                            message: "必须为数字."
+                        notEmpty: {
+                            message: "必填项."
                         },
                         stringLength: {
-                            min: 1,
-                            max: 20,
-                            message: "长度不能超过20位."
-                        }
-                    }
-                },
-                refresh_token_validity: {
-                    validators: {
-                        digits: {
-                            message: "必须为数字."
+                            min: 5,
+                            max: 30,
+                            message: "长度大于5位并且小于30位."
                         },
-                        stringLength: {
-                            min: 1,
-                            max: 20,
-                            message: "长度不能超过20位."
-                        }
-                    }
-                },
-                web_server_redirect_uri: {
-                    validators: {
-                        stringLength: {
-                            min: 0,
-                            max: 50,
-                            message: "长度不能超过100位."
-                        }
-                    }
-                },
-                additional_information: {
-                    validators: {
-                        stringLength: {
-                            min: 0,
-                            max: 50,
-                            message: "长度不能超过200位."
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\-\u4e00-\u9fa5]+$/,
+                            message: "只能由字母、数字、下划线、横线、中文."
                         }
                     }
                 }
@@ -522,7 +361,7 @@
 
             //获取数据
             getModel({
-                url: "/oauth/oauthclientdetails/get/" + operationId,
+                url: "/admin/usergroup/get/" + operationId,
                 showSuccessInfo: false,
                 beforeSendAction: function () {
                     disableControl("#btnOk");
@@ -553,9 +392,9 @@
                 return;
             }
 
-            var operationUrl = "/oauth/oauthclientdetails/add";
+            var operationUrl = "/admin/usergroup/add";
             if (operationType == "update") {
-                operationUrl = "/oauth/oauthclientdetails/update";
+                operationUrl = "/admin/usergroup/update";
             }
 
             submitForm({

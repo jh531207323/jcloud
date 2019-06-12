@@ -202,7 +202,7 @@
                     <div class="form-inline">
                         <div class="input-group">
                             <span class="input-group-addon">
-                                客户端编号
+                                用户组名称
                             </span>
                             <input id="txtName" type="text" class="form-control">
                         </div>
@@ -269,36 +269,57 @@
 
         loadGrid({
             gridTableSelector: "#gridTable",
-            url: "/oauth/oauthclientdetails/page",
+            url: "/admin/usergroup/page",
             datatype: "json",
             mtype: "GET",
             sortname: "id",
             sortorder: "asc",
             colNames: [
-                "客户端编号",
-                "作用范围",
-                "认证方式",
-                "回调路径",
+                "ID",
+                "用户组编号",
+                "用户组名称",
+                "是否有效",
+                "创建时间",
             ],
             colModel: [
                 {
-                    name: "client_id",
-                    index: "client_id",
+                    name: "id",
+                    index: "id",
+                    hidden: true,
+                },
+                {
+                    name: "userGroupCode",
+                    index: "userGroupCode",
                     sortable: true
                 },
                 {
-                    name: "scope",
-                    index: "scope",
+                    name: "userGroupName",
+                    index: "userGroupName",
                     sortable: true
                 },
                 {
-                    name: "authorized_grant_types",
-                    index: "authorized_grant_types",
-                    sortable: true
+                    name: "isValid",
+                    index: "isValid",
+                    sortable: true,
+                    formatter: function (cellValue, options, rowObject) {
+
+                        var formatHtml = "";
+
+                        if (cellValue == "Y") {
+                            formatHtml = "<span class='label label-success'>有效</span>";
+                        }
+                        else {
+                            formatHtml = "<span class='label label-default'>无效</span>";
+                        }
+
+                        return formatHtml;
+
+
+                    }
                 },
                 {
-                    name: "web_server_redirect_uri",
-                    index: "web_server_redirect_uri",
+                    name: "createTime",
+                    index: "createTime",
                     sortable: true
                 }
             ],
@@ -327,7 +348,7 @@
             $(gridTableSelector).jqGrid("setGridParam",
                 {
                     postData: {
-                        client_id: $("#txtName").val()
+                        userGroupName: $("#txtName").val()
                     },
                     page: 1,
                 }
@@ -348,7 +369,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area: ['850px', '400px'],
-                content: '/oauth/oauthclientdetails/view/add'
+                content: '/admin/usergroup/view/add'
             });
         });
 
@@ -369,7 +390,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area: ['850px', '400px'],
-                content: '/oauth/oauthclientdetails/view/add?id=' + rowData.client_id
+                content: '/admin/usergroup/view/add?id=' + rowData.id
             });
         });
 
@@ -383,7 +404,7 @@
 
             var ids = $.map(rowKeys, function (item, index) {
                 var rowData = $(gridTableSelector).jqGrid("getRowData", item);
-                return rowData.client_id;
+                return rowData.id;
             });
 
             var postData = {
@@ -392,7 +413,7 @@
 
             alertDeleteConfirm(function () {
                 executeAjax({
-                    url: "/oauth/oauthclientdetails/delete",
+                    url: "/admin/usergroup/delete",
                     data: postData,
                     beforeSendAction: function () {
                         enableControl("#btnDelete");
