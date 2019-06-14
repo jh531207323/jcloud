@@ -215,29 +215,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="roleGroupId" class="col-xs-2 control-label">角色组</label>
+                            <label for="roleGroupCode" class="col-xs-2 control-label">角色组编号</label>
                             <div class="col-xs-10">
-                                <select class="form-control select2" style="width: 100%;" id="roleGroupId"
-                                        name="roleGroupId" data-toggle="tooltip"
-                                        title="可选">
-
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="roleCode" class="col-xs-2 control-label">角色编号</label>
-                            <div class="col-xs-10">
-                                <input type="text" class="form-control" id="roleCode" name="roleCode"
+                                <input type="text" class="form-control" id="roleGroupCode" name="roleGroupCode"
                                        data-toggle="tooltip" title="主键,必须唯一,不能为空."/>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="roleName" class="col-xs-2 control-label">角色组名称</label>
+                            <label for="roleGroupName" class="col-xs-2 control-label">角色组名称</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="text" id="roleName" name="roleName"
-                                       data-toggle="tooltip" title="角色名称"/>
+                                <input class="form-control" type="text" id="roleGroupName" name="roleGroupName"
+                                       data-toggle="tooltip" title="角色组名称"/>
                             </div>
                         </div>
                     </div>
@@ -286,12 +275,7 @@
             excluded: ":disabled",   // <=== Adding the 'excluded' option
             fields: {
 
-                roleGroupId: {
-                    validators: {
-
-                    }
-                },
-                roleCode: {
+                roleGroupCode: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -307,7 +291,7 @@
                         }
                     }
                 },
-                roleName: {
+                roleGroupName: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -369,8 +353,6 @@
             language: "zh-CN",//汉化
         });
 
-        fillSelectRemote("#roleGroupId","/admin/rolegroup/find","roleGroupName","roleGroupCode",true);
-
         //验证表单
         validationForm();
 
@@ -381,7 +363,7 @@
 
             //获取数据
             getModel({
-                url: "/admin/role/get/" + operationId,
+                url: "/admin/rolegroup/get/" + operationId,
                 showSuccessInfo: false,
                 beforeSendAction: function () {
                     disableControl("#btnOk");
@@ -412,9 +394,9 @@
                 return;
             }
 
-            var operationUrl = "/admin/role/add";
+            var operationUrl = "/admin/rolegroup/add";
             if (operationType == "update") {
-                operationUrl = "/admin/role/update";
+                operationUrl = "/admin/rolegroup/update";
             }
 
             submitForm({

@@ -4,28 +4,27 @@ import com.angelj.jcloudcommon.util.bean.BeanConverter;
 import com.angelj.jcloudcommon.util.wrapper.data.DataWrapper;
 import com.angelj.jcloudcommon.util.wrapper.data.PageDataWrapper;
 import com.angelj.jcloudconsumer.admin.exception.support.handler.JcloudBaseExceptionHandler;
-import com.angelj.jcloudprovider.admin.api.model.dto.RoleDto;
-import com.angelj.jcloudprovider.admin.api.model.vo.RoleVo;
-import com.angelj.jcloudprovider.admin.api.service.RoleFeignApi;
+import com.angelj.jcloudprovider.admin.api.model.dto.RoleGroupDto;
+import com.angelj.jcloudprovider.admin.api.model.vo.RoleGroupVo;
+import com.angelj.jcloudprovider.admin.api.service.RoleGroupFeignApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/admin/role")
-public class RoleController extends JcloudBaseExceptionHandler {
+@RequestMapping(value = "/admin/rolegroup")
+public class RoleGroupController extends JcloudBaseExceptionHandler {
 
-    private String viewFolder = "admin/role/";
+    private String viewFolder = "admin/rolegroup/";
 
     private String getViewPath(String viewName) {
         return viewFolder + viewName;
     }
 
     @Autowired
-    RoleFeignApi roleFeignApi;
+    RoleGroupFeignApi roleGroupFeignApi;
 
     @RequestMapping("/view/list")
     public ModelAndView list() {
@@ -47,62 +46,62 @@ public class RoleController extends JcloudBaseExceptionHandler {
     //------------------------------------页面处理事件-------------------------------------
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
-    public DataWrapper check(@RequestBody RoleVo roleVo) {
+    public DataWrapper check(@RequestBody RoleGroupVo roleGroupVo) {
 
-        RoleDto roleDto = BeanConverter.copyProperties(roleVo, RoleDto.class);
+        RoleGroupDto roleGroupDto = BeanConverter.copyProperties(roleGroupVo, RoleGroupDto.class);
 
-        return roleFeignApi.check(roleDto);
+        return roleGroupFeignApi.check(roleGroupDto);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public DataWrapper add(@RequestBody RoleVo roleVo) {
+    public DataWrapper add(@RequestBody RoleGroupVo roleGroupVo) {
 
-        RoleDto roleDto = BeanConverter.copyProperties(roleVo, RoleDto.class);
+        RoleGroupDto roleGroupDto = BeanConverter.copyProperties(roleGroupVo, RoleGroupDto.class);
 
-        DataWrapper dataWrapper = roleFeignApi.check(roleDto);
+        DataWrapper dataWrapper = roleGroupFeignApi.check(roleGroupDto);
         if (dataWrapper.sucess()) {
-            dataWrapper = roleFeignApi.add(roleDto);
+            dataWrapper = roleGroupFeignApi.add(roleGroupDto);
         }
 
         return dataWrapper;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public DataWrapper update(@RequestBody RoleVo roleVo) {
+    public DataWrapper update(@RequestBody RoleGroupVo roleGroupVo) {
 
-        RoleDto roleDto = BeanConverter.copyProperties(roleVo, RoleDto.class);
+        RoleGroupDto roleGroupDto = BeanConverter.copyProperties(roleGroupVo, RoleGroupDto.class);
 
-        return roleFeignApi.update(roleDto);
+        return roleGroupFeignApi.update(roleGroupDto);
     }
 
     @RequestMapping(value = "/delete")
     public DataWrapper delete(@RequestParam("idList") List<String> idList) {
-        return roleFeignApi.delete(idList);
+        return roleGroupFeignApi.delete(idList);
     }
 
     @RequestMapping(value = "/get/{id}")
     public DataWrapper get(@PathVariable("id") String id) {
-        return roleFeignApi.get(id);
+        return roleGroupFeignApi.get(id);
     }
 
 
     @RequestMapping(value = "/page")
-    public DataWrapper page(PageDataWrapper pageDataWrapper, RoleVo roleVo) throws IllegalAccessException, IOException, InstantiationException {
+    public DataWrapper page(PageDataWrapper pageDataWrapper, RoleGroupVo roleGroupVo) {
 
-        if (roleVo != null) {
-            RoleDto roleDto = BeanConverter.copyProperties(roleVo, RoleDto.class);
+        if (roleGroupVo != null) {
+            RoleGroupDto roleGroupDto = BeanConverter.copyProperties(roleGroupVo, RoleGroupDto.class);
 
-            pageDataWrapper.setQueryObject(roleDto);
+            pageDataWrapper.setQueryObject(roleGroupDto);
         }
 
-        return roleFeignApi.page(pageDataWrapper);
+        return roleGroupFeignApi.page(pageDataWrapper);
     }
 
     @RequestMapping(value = "/find")
-    public DataWrapper page(RoleVo roleVo) {
+    public DataWrapper page(RoleGroupVo roleGroupVo) {
 
-        RoleDto roleDto = BeanConverter.copyProperties(roleVo, RoleDto.class);
+        RoleGroupDto roleGroupDto = BeanConverter.copyProperties(roleGroupVo, RoleGroupDto.class);
 
-        return roleFeignApi.find(roleDto);
+        return roleGroupFeignApi.find(roleGroupDto);
     }
 }

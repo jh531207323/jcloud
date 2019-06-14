@@ -50,27 +50,41 @@ function fillJsonToForm(formId, jsonData) {
                 form.find("[name=" + index + "]").val(item);
             }//单选下拉框
             else if (controlType == "select-one") {
-                $control.select2("val", "");
+                $control.select2().val([]);
 
-                if (item != null) {
+                if (item) {
                     var itemArray = item.split(",");
-                    $control.select2("val", itemArray);
+                    $control.select2().val(itemArray).trigger("change");;
                 }
             }//多选下拉框
             else if (controlType == "select-multiple") {
-                $control.select2("val", "");
+                $control.select2().val([]);
 
-                if (item != null) {
+                if (item) {
                     var itemArray = item.split(",");
-                    $control.select2("val", itemArray);
+                    $control.select2().val(itemArray).trigger("change");;
                 }
             }//复选框
             else if (controlType == "checkbox") {
+
+                //switch
+                if($control.hasClass("switch"))
+                {
+                    if(item == "Y") {
+                        $control.bootstrapSwitch("state", true);
+                    }
+                    else {
+                        $control.bootstrapSwitch("state", false);
+                    }
+
+                    return;
+                }
+
                 $control.iCheck('uncheck');
 
                 //查找对应控件
 
-                if (item != null) {
+                if (item) {
 
                     var itemArray = item.split(",");
                     $.each(itemArray, function (index, item) {
@@ -89,38 +103,53 @@ function fillJsonToForm(formId, jsonData) {
 }
 
 function getModel(settings) {
-    submitForm(settings);
+    doAjax(settings);
 }
 
 function executeAjax(settings) {
-    submitForm(settings);
+    doAjax(settings);
 }
 
 function submitForm(settings) {
+    doAjax(settings);
+}
+
+function doAjax(settings) {
 
     var defaultSetting = {
         url: "",
         dataType: "json",
+        contentType: "application/x-www-form-urlencoded",
         method: "POST",
-        formId: null,
-        postData: null,
+        data: null,
         cache: false,
         async: true,
+        formId: null,
+        postDataType: "",
         beforeSendAction: null,
         completeAction: null,
         successCallBack: null,
-        failCallBack: null,
+        failedCallBack: null,
         showSuccessInfo: true,
         showErrorInfo: true,
     };
 
     $.extend(defaultSetting, settings);
 
-    if (!defaultSetting.postData || !defaultSetting.formId) {
+    if (defaultSetting.formId) {
         var serializeArray = $("#" + defaultSetting.formId).serializeArray();
         var jsonObject = serializeArrayToJsonObject(serializeArray);
 
-        defaultSetting.postData = JSON.stringify(jsonObject);
+        defaultSetting.data = JSON.stringify(jsonObject);
+    }
+
+    if(defaultSetting.postDataType == "url")
+    {
+        defaultSetting.contentType = "application/x-www-form-urlencoded";
+    }
+    else if(defaultSetting.postDataType == "json")
+    {
+        defaultSetting.contentType = "application/json;charset=UTF-8";
     }
 
     var loadingIndex;
@@ -128,24 +157,24 @@ function submitForm(settings) {
     $.ajax({
         url: defaultSetting.url,
         type: defaultSetting.method,
-        data: defaultSetting.postData,
+        data: defaultSetting.data,
         cache: defaultSetting.cache,
         async: defaultSetting.async,
-        contentType: "application/json;charset=UTF-8",
+        contentType: defaultSetting.contentType,
         beforeSend: function (event, xhr, options) {
 
             loadingIndex = layer.load(1, {
                 shade: [0.5, '#232D37'] //0.1透明度的白色背景
             });
 
-            if (defaultSetting.beforeSendAction != null) {
+            if (defaultSetting.beforeSendAction) {
                 defaultSetting.beforeSendAction(event, xhr, options);
             }
         },
         complete: function (event, xhr, options) {
             layer.close(loadingIndex);
 
-            if (defaultSetting.completeAction != null) {
+            if (defaultSetting.completeAction) {
                 defaultSetting.completeAction(event, xhr, options);
             }
         },
@@ -176,7 +205,7 @@ function submitForm(settings) {
                         });
                     }
 
-                    if (defaultSetting.successCallBack != null) {
+                    if (defaultSetting.successCallBack) {
                         defaultSetting.successCallBack(jsonData.result);
                     }
 
@@ -194,8 +223,8 @@ function submitForm(settings) {
                         });
                     }
 
-                    if (defaultSetting.failCallBack != null) {
-                        defaultSetting.failCallBack(jsonData.result);
+                    if (defaultSetting.failedCallBack) {
+                        defaultSetting.failedCallBack(jsonData.result);
                     }
 
                     return;
@@ -211,8 +240,8 @@ function submitForm(settings) {
                     });
                 }
 
-                if (defaultSetting.failCallBack != null) {
-                    defaultSetting.failCallBack(jsonData.result);
+                if (defaultSetting.failedCallBack) {
+                    defaultSetting.failedCallBack(jsonData.result);
                 }
 
                 return;
@@ -226,8 +255,8 @@ function submitForm(settings) {
                     closeOnConfirm: true
                 });
 
-                if (defaultSetting.failCallBack != null) {
-                    defaultSetting.failCallBack(responseText);
+                if (defaultSetting.failedCallBack) {
+                    defaultSetting.failedCallBack(responseText);
                 }
             }
         },
@@ -253,100 +282,36 @@ function submitForm(settings) {
     });
 };
 
-function submitFormFile(url, method, formId, successCallBack, failCallBack) {
-
-    var form = new FormData(document.getElementById("formWJDBAdd"));
-
-    $.ajax({
+function fillSelectRemote(controlId,url,nameField,valueField,defaultSelection)
+{
+    var settings = {
         url: url,
-        type: method,
-        data: form,
-        cache: false,
-        async: true,
-        success: function (data) {
-            var json;
+        data: null,
+        showSuccessInfo: false,
+        beforeSendAction: function () {
 
-            try {
-                if ($.type(data) == 'string') {
-                    json = eval('(' + data + ')');
-                }
-                else {
-                    return json = data;
-                }
-            } catch (e) {
-                json = {};
-            }
-
-            if (json.code == 200) {
-                if (successCallBack != null) {
-                    successCallBack(json.data);
-                }
-            }
-            else if (json.code == 300) {
-                swal({
-                    title: "警告",
-                    text: json.message,
-                    type: "warning",
-                    confirmButtonText: "确定",
-                    closeOnConfirm: true
-                });
-
-                if (failCallBack != null) {
-                    failCallBack(json.data);
-                }
-            }
-            else if (json.code == 301) {
-                swal({
-                    title: "错误",
-                    text: json.message,
-                    type: "error",
-                    confirmButtonText: "确定",
-                    closeOnConfirm: true
-                });
-
-                if (failCallBack != null) {
-                    failCallBack(json.data);
-                }
-            } else {
-                swal({
-                    title: "错误",
-                    text: "未知的返回数据",
-                    type: "error",
-                    confirmButtonText: "确定",
-                    closeOnConfirm: true
-                });
-
-                if (failCallBack != null) {
-                    failCallBack(json.data);
-                }
-            }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
-            swal({
-                title: "错误",
-                text: "<div>Http status: " + xhr.status + " " + xhr.statusText + "</div>"
-                + "<div>ajaxOptions: " + ajaxOptions + "</div>"
-                + "<div>thrownError: " + thrownError + "</div>"
-                + "<div>" + xhr.responseText + "</div>",
-                type: "error",
-                confirmButtonText: "确定",
-                closeOnConfirm: true,
-                html: true
+        completeAction: function () {
+
+        },
+        successCallBack: function (data) {
+
+            if(defaultSelection)
+            {
+                $(controlId).append("<option value='' selected='selected'>请选择</option>");
+            }
+
+            $.each(data,function (index, item) {
+                $(controlId).append("<option value='" + item[valueField] + "'>" + item[nameField] + "</option>");
             });
         },
-        statusCode: {
-            503: function (xhr, ajaxOptions, thrownError) {
-                swal({
-                    title: "错误",
-                    text: "服务器异常!",
-                    type: "error",
-                    confirmButtonText: "确定",
-                    closeOnConfirm: true
-                });
-            }
+        failCallBack: function (data) {
+
         }
-    });
-};
+    };
+
+    doAjax(settings);
+}
 
 //获取url中的参数
 function getUrlParam(name) {

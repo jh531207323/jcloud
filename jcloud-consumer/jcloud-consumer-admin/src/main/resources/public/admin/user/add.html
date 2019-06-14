@@ -12,6 +12,35 @@
     <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/Ionicons/css/ionicons.min.css">
+
+    <!--------------------------------->
+    <!-- custom plugin styles begin  -->
+    <!--------------------------------->
+
+    <link href="/template/AdminLTE/2.4.10/bower_components/PACE/themes/blue/pace-theme-flash.css" rel="stylesheet"/>
+    <!-- sweetalert -->
+    <link href="/js/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link href="/template/AdminLTE/2.4.10/plugins/iCheck/all.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="/template/AdminLTE/2.4.10/bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- switch -->
+    <link href="/js/plugins/bootstrap-switch-3.3.4/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
+
+
+    <!-- jqGrid styles -->
+    <!--<link href="/template/AdminLTE/2.4.10/bower_components/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />-->
+    <link href="/js/plugins/jqGrid/5.0.2/ui.jqgrid.min.css" rel="stylesheet"/>
+    <link href="/js/plugins/jqGrid/5.0.2/ui.jqgrid.min.extend.css" rel="stylesheet"/>
+
+    <link href="/css/jh.page.css" rel="stylesheet"/>
+
+    <!--<script src="/js/plugins/layer/theme/default/layer.css"></script>-->
+
+    <!--------------------------------->
+    <!-- custom plugin styles end    -->
+    <!--------------------------------->
+
     <!-- Theme style -->
     <link rel="stylesheet" href="/template/AdminLTE/2.4.10/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -20,22 +49,6 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="/css/googleapis.css">
-
-    <!--------------------------------->
-    <!-- page specific plugin styles -->
-    <!--------------------------------->
-
-    <link href="/template/AdminLTE/2.4.10/bower_components/PACE/themes/blue/pace-theme-flash.css" rel="stylesheet"/>
-    <link href="/js/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
-
-
-    <!-- jqGrid styles -->
-    <!--<link href="/template/AdminLTE/2.4.10/bower_components/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />-->
-    <link href="/js/plugins/jqGrid/5.0.2/ui.jqgrid.min.css" rel="stylesheet"/>
-    <link href="/js/plugins/jqGrid/5.0.2/ui.jqgrid.min.extend.css" rel="stylesheet"/>
-
-
-    <!--<script src="/js/plugins/layer/theme/default/layer.css"></script>-->
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -67,13 +80,30 @@
     <!--sweetalert scripts-->
     <script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
 
+    <!-- iCheck 1.0.1 -->
+    <script src="/template/AdminLTE/2.4.10/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="/template/AdminLTE/2.4.10/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+    <!-- switch -->
+    <script src="/js/plugins/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
+
     <!--jqgrid scripts-->
     <script src="/js/plugins/jqGrid/5.0.2/jquery.jqGrid.min.js"></script>
     <script src="/js/plugins/jqGrid/5.0.2/grid.locale-en.js"></script>
 
     <script src="/js/plugins/layer/layer.js"></script>
 
-    <script src="/js/plugins/jquery.form/jquery.form.min.js"></script>
+    <!-- form.js -->
+    <script src="/js/jh.sweetalert.js"></script>
+    <script src="/js/jh.jqgrid.js"></script>
+    <script src="/js/jh.form.js"></script>
+    <script src="/js/jh.util.js"></script>
+
+    <link href="/js/plugins/bootstrapValidator/bootstrapValidator.min.css" rel="stylesheet"/>
+    <script src="/js/plugins/bootstrapValidator/bootstrapValidator.min.js" type="text/javascript"></script>
+    <script src="/js/plugins/bootstrapValidator/bootstrapValidator.zh_CN.min.js" type="text/javascript"></script>
 
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
@@ -169,7 +199,7 @@
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-align-center"></i>详细</h3>
+                    <h3 class="box-title"><i class="fa fa-bars"></i>详细</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -181,39 +211,67 @@
                 <!-- /.box-header -->
                 <form class="form-horizontal">
                     <div class="box-body">
-                        <div class="form-group">
-                            <label for="code" class="col-xs-2 control-label">角色编号</label>
-                            <div class="col-xs-4">
-                                <input type="text" class="form-control" id="code" name="code" placeholder="code"/>
-                            </div>
-                            <label for="name" class="col-xs-2 control-label">角色名称</label>
-                            <div class="col-xs-4">
-                                <input class="form-control" type="text" id="name" name="name" placeholder="name"/>
+
+                        <div class="form-group" hidden>
+                            <label for="id" class="col-xs-2 control-label">主键</label>
+                            <div class="col-xs-10">
+                                <input type="text" class="form-control" id="id" name="id"/>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="code" class="col-xs-2 control-label">是否有效</label>
-                            <div class="col-xs-4">
-                                <input type="text" class="form-control" id="code" name="code" placeholder="code"/>
-                            </div>
-                            <label for="name" class="col-xs-2 control-label">创建时间</label>
-                            <div class="col-xs-4">
-                                <input class="form-control" type="text" id="name" name="name" placeholder="name"/>
+                            <label for="userGroupId" class="col-xs-2 control-label">用户组</label>
+                            <div class="col-xs-10">
+                                <select class="form-control select2" style="width: 100%;" id="userGroupId"
+                                        name="userGroupId" data-toggle="tooltip"
+                                        title="可选">
+
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="description" class="col-xs-2 control-label">描述</label>
-                            <div class="col-xs-4">
-                                <input type="text" class="form-control" id="description" name="description"
-                                       placeholder="description"/>
-                            </div>
-                            <label for="remark" class="col-xs-2 control-label">备注</label>
-                            <div class="col-xs-4">
-                                <input class="form-control" type="text" id="remark" name="remark" placeholder="remark"/>
+                            <label for="userCode" class="col-xs-2 control-label">用户编号</label>
+                            <div class="col-xs-10">
+                                <input type="text" class="form-control" id="userCode" name="userCode"
+                                       data-toggle="tooltip" title="主键,必须唯一,不能为空."/>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="userName" class="col-xs-2 control-label">用户名称</label>
+                            <div class="col-xs-10">
+                                <input class="form-control" type="text" id="userName" name="userName"
+                                       data-toggle="tooltip" title="用户名称"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-xs-2 control-label">密码</label>
+                            <div class="col-xs-10">
+                                <input class="form-control" type="text" id="password" name="password"
+                                       data-toggle="tooltip" title="密码"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nickName" class="col-xs-2 control-label">昵称</label>
+                            <div class="col-xs-10">
+                                <input class="form-control" type="text" id="nickName" name="nickName"
+                                       data-toggle="tooltip" title="昵称"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="isEnable" class="col-xs-2 control-label">状态</label>
+                            <div class="col-xs-10">
+                                <input id="isEnable" class="switch" name="isEnable" type="checkbox"
+                                       checked
+                                       data-on-color="success" data-off-color="default"
+                                       data-on-text="开启" data-off-text="关闭" data-label-text=""/>
+                            </div>
+                        </div>
+
                     </div>
 
                 </form>
@@ -230,11 +288,11 @@
     <div class="row no-print">
         <div class="col-xs-12">
             <button id="btnCancel" type="button" class="btn btn-primary pull-right">
-                <i class="fa fa-close"></i> Cancel
+                <i class="fa fa-close"></i> 取消
             </button>
 
             <button id="btnOk" type="button" class="btn btn-success pull-right" style="margin-right: 5px;">
-                <i class="fa fa-check"></i> Ok
+                <i class="fa fa-check"></i> 保存
             </button>
         </div>
     </div>
@@ -243,47 +301,211 @@
 
 <script type="text/javascript">
 
-    //注意：parent 是 JS 自带的全局对象，可用于操作父页面
-    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-
     //page resize function ,just use for iframe size will be changed.
     function pageResize() {
-        parent.layer.iframeAuto(index);
+        //parent.layer.iframeAuto(index);
     }
+
+    function validationForm() {
+        $("form").bootstrapValidator({
+            message: "无效的值",
+            feedbackIcons: {
+                valid: "glyphicon glyphicon-ok",
+                invalid: "glyphicon glyphicon-remove",
+                validating: "glyphicon glyphicon-refresh"
+            },
+            //excluded: "hidden",
+            excluded: ":disabled",   // <=== Adding the 'excluded' option
+            fields: {
+
+                userGroupId: {
+                    validators: {}
+                },
+                userCode: {
+                    validators: {
+                        notEmpty: {
+                            message: "必填项."
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 30,
+                            message: "长度大于1位并且小于30位."
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\-]+$/,
+                            message: "只能由字母、数字、下划线、横线."
+                        }
+                    }
+                },
+                userName: {
+                    validators: {
+                        notEmpty: {
+                            message: "必填项."
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 30,
+                            message: "长度大于5位并且小于30位."
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\-\u4e00-\u9fa5]+$/,
+                            message: "只能由字母、数字、下划线、横线、中文."
+                        }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: "必填项."
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 30,
+                            message: "长度大于5位并且小于30位."
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\-]+$/,
+                            message: "只能由字母、数字、下划线、横线."
+                        }
+                    }
+                },
+                nickName: {
+                    validators: {
+                        stringLength: {
+                            min: 1,
+                            max: 30,
+                            message: "长度大于1位并且小于30位."
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\-\u4e00-\u9fa5]+$/,
+                            message: "只能由字母、数字、下划线、横线、中文."
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    var operationId;
+    var operationType;
 
     //page init
     $(document).ready(function () {
-        pageResize();
+        //pageResize();
         $(window).on("resize", function () {
             pageResize();
         });
 
-        parent.layer.iframeAuto(index);
+        //parent.layer.iframeAuto(index);
+
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-blue',
+            radioClass: 'iradio_flat-blue'
+        });
+
+        //将多选的值赋值到隐藏域
+//        $('[name="authorized_grant_types[]"]').on('ifChanged', function (event) {
+//
+//            var str = "";
+//            var ids = "";
+//            $('[name="authorized_grant_types[]"]:checkbox').each(function () {
+//                if (true == $(this).is(':checked')) {
+//                    str += $(this).val() + ",";
+//                }
+//            });
+//
+//            if (str.substr(str.length - 1) == ',') {
+//                ids = str.substr(0, str.length - 1);
+//            }
+//
+//            $("#authorized_grant_types").val(ids);
+//
+//        });
+
+        //Initialize Select2 Elements
+        $('.select2').select2({
+            language: "zh-CN",//汉化
+        });
+
+        $('.switch').bootstrapSwitch();
+
+        fillSelectRemote("#userGroupId", "/admin/usergroup/find", "userGroupName", "userGroupCode", true);
+
+        //验证表单
+        validationForm();
+
+        //判断操作类型
+        var operationId = getUrlParam("id");
+        if (operationId) {
+            operationType = "update";
+
+            //获取数据
+            getModel({
+                url: "/admin/user/get/" + operationId,
+                showSuccessInfo: false,
+                beforeSendAction: function () {
+                    disableControl("#btnOk");
+                },
+                completeAction: function () {
+
+                },
+                successCallBack: function (data) {
+                    enableControl("#btnOk");
+
+                    //填充表单
+                    fillJsonToForm("formMain", data);
+
+                },
+                failCallBack: function (data) {
+
+                }
+            });
+        }
+        else {
+            operationType = "add";
+        }
 
         $("#btnOk").click(function () {
 
-            var options = {
-                url: "/security/admin/role/add_role",
-                target: "",   // 把服务器返回的内容放入id为output1的元素中,
-                dataType: "json",   // 接收服务端返回的类型 xml,scrpit,json
-                beforeSubmit: function () { // 提交前的回调函数
-                    //加载层-风格2
-                    layer.load(2);
-                },
-                success: function () { // 提交后的回调函数
+            /*手动验证表单，当是普通按钮时。*/
+            $("form").data("bootstrapValidator").validate();
+            if (!$("form").data("bootstrapValidator").isValid()) {
+                return;
+            }
 
-                    layer.closeAll('loading');
+            var operationUrl = "/admin/user/add";
+            if (operationType == "update") {
+                operationUrl = "/admin/user/update";
+            }
+
+            submitForm({
+                url: operationUrl,
+                formId: "formMain",
+                postDataType: "json",
+                showSuccessInfo: false,
+                beforeSendAction: function () {
+                    disableControl("#btnOk");
+                },
+                completeAction: function () {
+                    enableControl("#btnOk");
+                },
+                successCallBack: function (data) {
+                    alertSuccess(function () {
+                        refreshParentGrid();
+                        closeCurrentLayer();
+                    });
+                },
+                failCallBack: function (data) {
 
                 }
-            };
-
-            $("#formMain").ajaxSubmit(options);
+            });
 
         });
 
         $("#btnCancel").click(function () {
-            var index = parent.layer.getFrameIndex(window.name);
-            parent.layer.close(index);
+
+            closeCurrentLayer();
         });
     });
 </script>

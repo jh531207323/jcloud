@@ -230,9 +230,9 @@
                             <div class="col-xs-4">
                                 <select class="form-control select2" style="width: 100%;" multiple="multiple" id="scope"
                                         name="scope" data-toggle="tooltip" title="指定客户端申请的权限范围"/>
-                                <option selected="selected">read</option>
-                                <option>write</option>
-                                <option>trust</option>
+                                    <option selected="selected">read</option>
+                                    <option>write</option>
+                                    <option>trust</option>
                                 </select>
                             </div>
                         </div>
@@ -510,7 +510,9 @@
 //        });
 
         //Initialize Select2 Elements
-        $('.select2').select2();
+        $('.select2').select2({
+            language: "zh-CN",//汉化
+        });
 
         //验证表单
         validationForm();

@@ -281,9 +281,9 @@
                             message: "必填项."
                         },
                         stringLength: {
-                            min: 5,
+                            min: 1,
                             max: 30,
-                            message: "长度大于5位并且小于30位."
+                            message: "长度大于1位并且小于30位."
                         },
                         regexp: {
                             regexp: /^[a-zA-Z0-9_\-]+$/,
@@ -297,9 +297,9 @@
                             message: "必填项."
                         },
                         stringLength: {
-                            min: 5,
+                            min: 1,
                             max: 30,
-                            message: "长度大于5位并且小于30位."
+                            message: "长度大于1位并且小于30位."
                         },
                         regexp: {
                             regexp: /^[a-zA-Z0-9_\-\u4e00-\u9fa5]+$/,
@@ -349,7 +349,9 @@
 //        });
 
         //Initialize Select2 Elements
-        $('.select2').select2();
+        $('.select2').select2({
+            language: "zh-CN",//汉化
+        });
 
         //验证表单
         validationForm();

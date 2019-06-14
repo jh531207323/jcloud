@@ -202,7 +202,7 @@
                     <div class="form-inline">
                         <div class="input-group">
                             <span class="input-group-addon">
-                                角色名称
+                                角色组名称
                             </span>
                             <input id="txtName" type="text" class="form-control">
                         </div>
@@ -269,15 +269,15 @@
 
         loadGrid({
             gridTableSelector: "#gridTable",
-            url: "/admin/role/page",
+            url: "/admin/rolegroup/page",
             datatype: "json",
             mtype: "GET",
             sortname: "id",
             sortorder: "asc",
             colNames: [
                 "ID",
-                "角色编号",
-                "角色名称",
+                "角色组编号",
+                "角色组名称",
                 "是否有效",
                 "创建时间",
             ],
@@ -288,13 +288,13 @@
                     hidden: true,
                 },
                 {
-                    name: "roleCode",
-                    index: "roleCode",
+                    name: "roleGroupCode",
+                    index: "roleGroupCode",
                     sortable: true
                 },
                 {
-                    name: "roleName",
-                    index: "roleName",
+                    name: "roleGroupName",
+                    index: "roleGroupName",
                     sortable: true
                 },
                 {
@@ -348,7 +348,7 @@
             $(gridTableSelector).jqGrid("setGridParam",
                 {
                     postData: {
-                        roleName: $("#txtName").val()
+                        roleGroupName: $("#txtName").val()
                     },
                     page: 1,
                 }
@@ -369,7 +369,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area: ['850px', '400px'],
-                content: '/admin/role/view/add'
+                content: '/admin/rolegroup/view/add'
             });
         });
 
@@ -390,7 +390,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area: ['850px', '400px'],
-                content: '/admin/role/view/add?id=' + rowData.id
+                content: '/admin/rolegroup/view/add?id=' + rowData.id
             });
         });
 
@@ -413,7 +413,7 @@
 
             alertDeleteConfirm(function () {
                 executeAjax({
-                    url: "/admin/role/delete",
+                    url: "/admin/rolegroup/delete",
                     data: postData,
                     beforeSendAction: function () {
                         enableControl("#btnDelete");

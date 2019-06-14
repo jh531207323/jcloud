@@ -9,6 +9,8 @@ spring:
       profile: dev
       username: root
       password: root
+  main:
+    allow-bean-definition-overriding: true
 
 eureka:
   client:

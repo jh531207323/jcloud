@@ -1,5 +1,6 @@
 package com.angelj.jcloudconsumer.admin.web.oauth;
 
+import com.angelj.jcloudcommon.util.bean.BeanConverter;
 import com.angelj.jcloudcommon.util.wrapper.data.DataWrapper;
 import com.angelj.jcloudcommon.util.wrapper.data.PageDataWrapper;
 import com.angelj.jcloudconsumer.admin.exception.support.handler.JcloudBaseExceptionHandler;
@@ -42,13 +43,20 @@ public class OauthClientDetailsController extends JcloudBaseExceptionHandler {
         return modelAndView;
     }
 
+    //------------------------------------页面处理事件-------------------------------------
+
     @RequestMapping(value = "/check", method = RequestMethod.POST)
-    public DataWrapper check(@RequestBody OauthClientDetailsDto oauthClientDetailsDto) {
+    public DataWrapper check(@RequestBody OauthClientDetailsVo oauthClientDetailsVo) {
+
+        OauthClientDetailsDto oauthClientDetailsDto = BeanConverter.copyProperties(oauthClientDetailsVo, OauthClientDetailsDto.class);
+
         return oauthClientDetailsFeignApi.check(oauthClientDetailsDto);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public DataWrapper add(@RequestBody OauthClientDetailsDto oauthClientDetailsDto) {
+    public DataWrapper add(@RequestBody OauthClientDetailsVo oauthClientDetailsVo) {
+
+        OauthClientDetailsDto oauthClientDetailsDto = BeanConverter.copyProperties(oauthClientDetailsVo, OauthClientDetailsDto.class);
 
         DataWrapper dataWrapper = oauthClientDetailsFeignApi.check(oauthClientDetailsDto);
         if (dataWrapper.sucess()) {
@@ -59,7 +67,10 @@ public class OauthClientDetailsController extends JcloudBaseExceptionHandler {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public DataWrapper update(@RequestBody OauthClientDetailsDto oauthClientDetailsDto) {
+    public DataWrapper update(@RequestBody OauthClientDetailsVo oauthClientDetailsVo) {
+
+        OauthClientDetailsDto oauthClientDetailsDto = BeanConverter.copyProperties(oauthClientDetailsVo, OauthClientDetailsDto.class);
+
         return oauthClientDetailsFeignApi.update(oauthClientDetailsDto);
     }
 
@@ -75,9 +86,22 @@ public class OauthClientDetailsController extends JcloudBaseExceptionHandler {
 
 
     @RequestMapping(value = "/page")
-    public DataWrapper page(PageDataWrapper<OauthClientDetailsVo> pageDataWrapper, OauthClientDetailsVo oauthClientDetailsVo) {
-        pageDataWrapper.setQueryObject(oauthClientDetailsVo);
+    public DataWrapper page(PageDataWrapper pageDataWrapper, OauthClientDetailsVo oauthClientDetailsVo) {
+
+        if (oauthClientDetailsVo != null) {
+            OauthClientDetailsDto oauthClientDetailsDto = BeanConverter.copyProperties(oauthClientDetailsVo, OauthClientDetailsDto.class);
+
+            pageDataWrapper.setQueryObject(oauthClientDetailsDto);
+        }
+
         return oauthClientDetailsFeignApi.page(pageDataWrapper);
     }
 
+    @RequestMapping(value = "/find")
+    public DataWrapper page(OauthClientDetailsVo oauthClientDetailsVo) {
+
+        OauthClientDetailsDto oauthClientDetailsDto = BeanConverter.copyProperties(oauthClientDetailsVo, OauthClientDetailsDto.class);
+
+        return oauthClientDetailsFeignApi.find(oauthClientDetailsDto);
+    }
 }
