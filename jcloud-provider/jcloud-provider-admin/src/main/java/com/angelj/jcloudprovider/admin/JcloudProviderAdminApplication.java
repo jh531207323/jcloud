@@ -7,7 +7,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan("com.angelj.jcloudprovider.admin.mapper")
 public class JcloudProviderAdminApplication {
     public static void main(String[] args) {
         SpringApplication.run(JcloudProviderAdminApplication.class, args);

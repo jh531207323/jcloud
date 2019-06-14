@@ -1,6 +1,6 @@
 package com.angelj.jcloudprovider.admin.mapper;
 
-import com.angelj.jcloudprovider.admin.model.User;
+import com.angelj.jcloudprovider.admin.model.domain.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

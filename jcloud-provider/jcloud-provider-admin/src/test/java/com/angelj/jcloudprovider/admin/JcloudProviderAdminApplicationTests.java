@@ -1,7 +1,7 @@
 package com.angelj.jcloudprovider.admin;
 
 import com.angelj.jcloudprovider.admin.mapper.UserMapper;
-import com.angelj.jcloudprovider.admin.model.User;
+import com.angelj.jcloudprovider.admin.model.domain.User;
 import com.angelj.jcloudprovider.admin.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,12 +27,12 @@ public class JcloudProviderAdminApplicationTests {
     public void testSelect() {
 
         User user = new User();
-        user.setFAccountname("1");
-        user.setFPassword("1");
+        user.setUserName("1");
+        user.setPassword("1");
 
-        User loginuser = userService.Login(user);
+        //User loginuser = userService.Login(user);
 
-        System.out.println(("----- selectAll method test ------" + loginuser.getFUsername()));
+        //System.out.println(("----- selectAll method test ------" + loginuser.getFUsername()));
 
         System.out.println(("----- selectAll method test ------"));
         List<User> userList = userMapper.selectList(null);

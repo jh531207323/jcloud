@@ -1,22 +1,21 @@
 package com.angelj.jcloudprovider.oauth.web.rpc;
 
+import com.angelj.jcloudcommon.util.bean.BeanConverter;
 import com.angelj.jcloudcommon.util.wrapper.data.PageDataWrapper;
 import com.angelj.jcloudcommon.util.wrapper.data.DataWrapper;
 import com.angelj.jcloudcommon.util.wrapper.data.HandleResultMapper;
 import com.angelj.jcloudprovider.oauth.api.model.dto.OauthClientDetailsDto;
-import com.angelj.jcloudprovider.oauth.api.model.vo.OauthClientDetailsVo;
 import com.angelj.jcloudprovider.oauth.api.service.OauthClientDetailsFeignApi;
 import com.angelj.jcloudprovider.oauth.model.domain.OauthClientDetails;
 import com.angelj.jcloudprovider.oauth.service.OauthClientDetailsService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,8 +26,6 @@ public class OauthClientDetailsFeignClient implements OauthClientDetailsFeignApi
 
     @Override
     public DataWrapper check(OauthClientDetailsDto oauthClientDetailsDto) {
-        OauthClientDetails oauthClientDetails = new OauthClientDetails();
-        BeanUtils.copyProperties(oauthClientDetailsDto, oauthClientDetails);
 
         QueryWrapper<OauthClientDetails> queryWrapper = new QueryWrapper<>();
 
@@ -47,8 +44,7 @@ public class OauthClientDetailsFeignClient implements OauthClientDetailsFeignApi
     @Override
     public DataWrapper add(OauthClientDetailsDto oauthClientDetailsDto) {
 
-        OauthClientDetails oauthClientDetails = new OauthClientDetails();
-        BeanUtils.copyProperties(oauthClientDetailsDto, oauthClientDetails);
+        OauthClientDetails oauthClientDetails = BeanConverter.copyProperties(oauthClientDetailsDto, OauthClientDetails.class);
 
         boolean flag = oauthClientDetailsService.save(oauthClientDetails);
         return HandleResultMapper.wrap(flag);
@@ -57,8 +53,7 @@ public class OauthClientDetailsFeignClient implements OauthClientDetailsFeignApi
     @Override
     public DataWrapper update(OauthClientDetailsDto oauthClientDetailsDto) {
 
-        OauthClientDetails oauthClientDetails = new OauthClientDetails();
-        BeanUtils.copyProperties(oauthClientDetailsDto, oauthClientDetails);
+        OauthClientDetails oauthClientDetails = BeanConverter.copyProperties(oauthClientDetailsDto, OauthClientDetails.class);
 
         boolean flag = oauthClientDetailsService.updateById(oauthClientDetails);
         return HandleResultMapper.wrap(flag);
@@ -74,16 +69,18 @@ public class OauthClientDetailsFeignClient implements OauthClientDetailsFeignApi
     public DataWrapper get(String id) {
         OauthClientDetails oauthClientDetails = oauthClientDetailsService.getById(id);
 
-        OauthClientDetailsDto oauthClientDetailsDto = new OauthClientDetailsDto();
         if (oauthClientDetails != null) {
-            BeanUtils.copyProperties(oauthClientDetails, oauthClientDetailsDto);
-        }
+            OauthClientDetailsDto oauthClientDetailsDto = BeanConverter.copyProperties(oauthClientDetails, OauthClientDetailsDto.class);
 
-        return HandleResultMapper.wrapResult(oauthClientDetailsDto);
+            return HandleResultMapper.wrapResult(oauthClientDetailsDto);
+        }
+        else {
+            return HandleResultMapper.wrapResult(null);
+        }
     }
 
     @Override
-    public DataWrapper page(PageDataWrapper<OauthClientDetailsVo> pageDataWrapper) {
+    public DataWrapper page(PageDataWrapper<OauthClientDetailsDto> pageDataWrapper) {
         Page<OauthClientDetails> page = new Page<>();
         page.setSize(pageDataWrapper.getPageSize());
         page.setCurrent(pageDataWrapper.getPageIndex());
@@ -92,15 +89,33 @@ public class OauthClientDetailsFeignClient implements OauthClientDetailsFeignApi
         if (pageDataWrapper.getQueryObject() != null) {
             queryWrapper = new QueryWrapper<>();
             if (StringUtils.isNotEmpty(pageDataWrapper.getQueryObject().getClient_id())) {
-                queryWrapper.lambda().eq(OauthClientDetails::getClient_id, pageDataWrapper.getQueryObject().getClient_id());
+                queryWrapper.lambda().like(OauthClientDetails::getClient_id, pageDataWrapper.getQueryObject().getClient_id());
             }
         }
 
         IPage<OauthClientDetails> pageResult = oauthClientDetailsService.page(page, queryWrapper);
 
+        List<OauthClientDetailsDto> oauthClientDetailsDtoList = BeanConverter.copyList(pageResult.getRecords(), OauthClientDetailsDto.class);
+
         pageDataWrapper.setDataCount(pageResult.getTotal());
-        pageDataWrapper.setData(pageResult.getRecords());
+        pageDataWrapper.setData(oauthClientDetailsDtoList);
 
         return HandleResultMapper.wrapPage(pageDataWrapper);
+    }
+
+    @Override
+    public DataWrapper find(OauthClientDetailsDto oauthClientDetailsDto) {
+
+        QueryWrapper<OauthClientDetails> queryWrapper = new QueryWrapper<>();
+
+        if (StringUtils.isNotEmpty(oauthClientDetailsDto.getClient_id())) {
+            queryWrapper.lambda().eq(OauthClientDetails::getClient_id, oauthClientDetailsDto.getClient_id());
+        }
+
+        List<OauthClientDetails> userGroupList = oauthClientDetailsService.list(queryWrapper);
+
+        List<OauthClientDetailsDto> oauthClientDetailsDtoList = BeanConverter.copyList(userGroupList, OauthClientDetailsDto.class);
+
+        return HandleResultMapper.wrapResult(oauthClientDetailsDtoList);
     }
 }
