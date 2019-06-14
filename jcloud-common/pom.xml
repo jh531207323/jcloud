@@ -17,6 +17,7 @@
     <modules>
 
         <module>jcloud-common-util</module>
+        <module>jcloud-core</module>
     </modules>
 
 </project>

@@ -8,9 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>jcloud-common-util</artifactId>
+    <artifactId>jcloud-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jcloud-common-util</name>
+    <name>jcloud-core</name>
     <description>jcloud</description>
 
     <dependencies>
@@ -46,11 +46,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-            <version>${cglib-nodep.version}</version>
         </dependency>
     </dependencies>
 
