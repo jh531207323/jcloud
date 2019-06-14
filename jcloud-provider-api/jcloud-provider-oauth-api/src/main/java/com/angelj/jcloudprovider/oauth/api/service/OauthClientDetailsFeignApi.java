@@ -30,5 +30,8 @@ public interface OauthClientDetailsFeignApi {
     DataWrapper get(@PathVariable("id") String id);
 
     @RequestMapping(value = "api/oauthclientdetails/page", method = RequestMethod.POST)
-    DataWrapper page(@RequestBody PageDataWrapper<OauthClientDetailsVo> pageDataWrapper);
+    DataWrapper page(@RequestBody PageDataWrapper<OauthClientDetailsDto> pageDataWrapper);
+
+    @RequestMapping(value = "api/oauthclientdetails/find", method = RequestMethod.POST)
+    DataWrapper find(@RequestBody OauthClientDetailsDto oauthClientDetailsDto);
 }

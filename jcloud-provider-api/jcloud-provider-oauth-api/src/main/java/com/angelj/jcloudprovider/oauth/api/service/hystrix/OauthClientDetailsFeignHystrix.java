@@ -38,7 +38,12 @@ public class OauthClientDetailsFeignHystrix implements OauthClientDetailsFeignAp
     }
 
     @Override
-    public DataWrapper page(PageDataWrapper<OauthClientDetailsVo> pageDataWrapper) {
+    public DataWrapper page(PageDataWrapper<OauthClientDetailsDto> pageDataWrapper) {
+        return HandleResultMapper.wrapFailed();
+    }
+
+    @Override
+    public DataWrapper find(OauthClientDetailsDto oauthClientDetailsDto) {
         return HandleResultMapper.wrapFailed();
     }
 }

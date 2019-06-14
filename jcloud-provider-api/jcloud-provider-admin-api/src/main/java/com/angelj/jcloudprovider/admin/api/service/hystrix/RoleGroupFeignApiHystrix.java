@@ -3,26 +3,25 @@ package com.angelj.jcloudprovider.admin.api.service.hystrix;
 import com.angelj.jcloudcommon.util.wrapper.data.DataWrapper;
 import com.angelj.jcloudcommon.util.wrapper.data.HandleResultMapper;
 import com.angelj.jcloudcommon.util.wrapper.data.PageDataWrapper;
-import com.angelj.jcloudprovider.admin.api.model.dto.UserDto;
-import com.angelj.jcloudprovider.admin.api.service.UserFeignApi;
+import com.angelj.jcloudprovider.admin.api.model.dto.RoleGroupDto;
+import com.angelj.jcloudprovider.admin.api.model.vo.RoleGroupVo;
+import com.angelj.jcloudprovider.admin.api.service.RoleGroupFeignApi;
 
 import java.util.List;
 
-public class UserFeignApiHystrix implements UserFeignApi {
-
-
+public class RoleGroupFeignApiHystrix implements RoleGroupFeignApi {
     @Override
-    public DataWrapper check(UserDto userDto) {
+    public DataWrapper check(RoleGroupDto roleGroupDto) {
         return HandleResultMapper.wrapFailed();
     }
 
     @Override
-    public DataWrapper add(UserDto userDto) {
+    public DataWrapper add(RoleGroupDto roleGroupDto) {
         return HandleResultMapper.wrapFailed();
     }
 
     @Override
-    public DataWrapper update(UserDto userDto) {
+    public DataWrapper update(RoleGroupDto roleGroupDto) {
         return HandleResultMapper.wrapFailed();
     }
 
@@ -37,17 +36,13 @@ public class UserFeignApiHystrix implements UserFeignApi {
     }
 
     @Override
-    public DataWrapper page(PageDataWrapper<UserDto> pageDataWrapper) {
+    public DataWrapper page(PageDataWrapper<RoleGroupDto> pageDataWrapper) {
         return HandleResultMapper.wrapFailed();
     }
 
     @Override
-    public DataWrapper find(UserDto userDto) {
-        return HandleResultMapper.wrapFailed();
-    }
-
-    @Override
-    public DataWrapper login(String userName, String password) {
+    public DataWrapper find(RoleGroupDto roleGroupDto)
+    {
         return HandleResultMapper.wrapFailed();
     }
 }
