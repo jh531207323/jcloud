@@ -1,0 +1,14 @@
+/*! Rappid v2.4.0 - HTML5 Diagramming Framework - TRIAL VERSION
+
+Copyright (c) 2015 client IO
+
+ 2019-07-01 
+
+
+This Source Code Form is subject to the terms of the Rappid Trial License
+, v. 2.0. If a copy of the Rappid License was not distributed with this
+file, You can obtain one at http://jointjs.com/license/rappid_v2.txt
+ or from the Rappid archive as was distributed by client IO. See the LICENSE file.*/
+
+
+.joint-popup:after,.joint-popup:before{position:absolute;left:50%;margin-left:-10px}.joint-popup{position:absolute;z-index:1000}.joint-popup:after,.joint-popup:before{content:' ';height:0;width:0}.joint-popup:before{top:-18px;z-index:2}.joint-popup:after{top:-22px;z-index:1}.joint-popup.joint-theme-dark{background-color:#8b9094;border:2px solid #5e6366;border-radius:10px;padding:10px}.joint-popup.joint-theme-dark:after,.joint-popup.joint-theme-dark:before{border:10px solid transparent}.joint-popup.joint-theme-dark:before{border-bottom-color:#8b9094}.joint-popup.joint-theme-dark:after{border-bottom-color:#5e6366}.joint-popup.joint-theme-default{border:1px solid #d3d3d3;background-color:#fff;padding:10px}.joint-popup.joint-theme-default:after,.joint-popup.joint-theme-default:before{border:11px solid transparent}.joint-popup.joint-theme-default:before{top:-21px;border-bottom-color:#fff}.joint-popup.joint-theme-default:after{border-bottom-color:#d3d3d3}.joint-popup.joint-theme-material{background-color:#ecf0f8;border:2px solid #d0d8e8;border-radius:10px;padding:10px;font-family:lato-light,Arial,sans-serif}.joint-popup.joint-theme-material:after,.joint-popup.joint-theme-material:before{border:10px solid transparent}.joint-popup.joint-theme-material:before{border-bottom-color:#ecf0f8}.joint-popup.joint-theme-material:after{border-bottom-color:#d0d8e8}.joint-popup.joint-theme-modern{background-color:#fff;border:2px solid #31d0c6;border-radius:10px;padding:10px}.joint-popup.joint-theme-modern:after,.joint-popup.joint-theme-modern:before{border:10px solid transparent}.joint-popup.joint-theme-modern:before{border-bottom-color:#fff}.joint-popup.joint-theme-modern:after{border-bottom-color:#31d0c6}

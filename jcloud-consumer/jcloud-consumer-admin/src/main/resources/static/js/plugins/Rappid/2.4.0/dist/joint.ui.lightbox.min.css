@@ -1,0 +1,14 @@
+/*! Rappid v2.4.0 - HTML5 Diagramming Framework - TRIAL VERSION
+
+Copyright (c) 2015 client IO
+
+ 2019-07-01 
+
+
+This Source Code Form is subject to the terms of the Rappid Trial License
+, v. 2.0. If a copy of the Rappid License was not distributed with this
+file, You can obtain one at http://jointjs.com/license/rappid_v2.txt
+ or from the Rappid archive as was distributed by client IO. See the LICENSE file.*/
+
+
+.joint-dialog.joint-lightbox{position:fixed;z-index:10000;top:0;left:0;right:0;height:100%;width:100%;text-align:center}.joint-dialog.joint-lightbox .bg{opacity:.87}.joint-dialog.joint-lightbox .btn-close{background-color:transparent;border:1px solid transparent;text-shadow:none}.joint-dialog.joint-lightbox .fg{position:relative;display:inline-block;overflow:visible;background-color:transparent;top:0;width:80%;height:80%;min-width:10%;max-height:none;border:none;box-shadow:none;text-align:center}.joint-dialog.joint-lightbox .body{display:inline-block;background-color:transparent;padding:0;width:100%;height:100%}.joint-dialog.joint-lightbox img{display:inline-block;max-width:100%;max-height:100%}.joint-dialog.joint-lightbox .titlebar{position:absolute;background:0 0;top:100%;padding:10px 0;border-bottom:none;text-align:left}.joint-dialog.joint-lightbox.joint-theme-dark .btn-close:hover,.joint-dialog.joint-lightbox.joint-theme-dark .control-button{color:#d1d2d4;border:1px solid #937b7b}.joint-dialog.joint-lightbox .controls{position:relative}.joint-dialog.joint-lightbox.joint-theme-dark .btn-close{color:#d1d2d4;top:-35px;right:-4px;font-size:24px}.joint-dialog.joint-lightbox.joint-theme-dark .titlebar{color:#d1d2d4}.joint-dialog.joint-lightbox.joint-theme-default .btn-close:hover,.joint-dialog.joint-lightbox.joint-theme-material .btn-close:hover,.joint-dialog.joint-lightbox.joint-theme-modern .btn-close:hover{border:1px solid #fff}.joint-dialog.joint-lightbox.joint-theme-default .btn-close{color:#fff;top:-35px;right:-2px;font-size:24px}.joint-dialog.joint-lightbox.joint-theme-default .control-button,.joint-dialog.joint-lightbox.joint-theme-default .titlebar{color:#fff}.joint-dialog.joint-lightbox.joint-theme-material{font-family:lato-light,Arial,sans-serif}.joint-dialog.joint-lightbox.joint-theme-material .bg{background:#000}.joint-dialog.joint-lightbox.joint-theme-material .btn-close{color:#fff;top:-35px;right:-2px;font-size:24px}.joint-dialog.joint-lightbox.joint-theme-material .control-button,.joint-dialog.joint-lightbox.joint-theme-material .titlebar{color:#fff}.joint-dialog.joint-lightbox.joint-theme-modern .btn-close{color:#fff;top:-35px;right:-2px;font-size:24px}.joint-dialog.joint-lightbox.joint-theme-modern .control-button,.joint-dialog.joint-lightbox.joint-theme-modern .titlebar{color:#fff}

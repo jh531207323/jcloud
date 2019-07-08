@@ -1,0 +1,14 @@
+/*! Rappid v2.4.0 - HTML5 Diagramming Framework - TRIAL VERSION
+
+Copyright (c) 2015 client IO
+
+ 2019-07-01 
+
+
+This Source Code Form is subject to the terms of the Rappid Trial License
+, v. 2.0. If a copy of the Rappid License was not distributed with this
+file, You can obtain one at http://jointjs.com/license/rappid_v2.txt
+ or from the Rappid archive as was distributed by client IO. See the LICENSE file.*/
+
+
+.joint-snaplines{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none}.joint-snaplines>.snapline{position:absolute;pointer-events:none;opacity:1}.joint-snaplines>.snapline.horizontal{width:100%}.joint-snaplines>.snapline.vertical{height:100%}.joint-paper-scroller .joint-snaplines>.snapline.horizontal{width:700%;left:-300%}.joint-paper-scroller .joint-snaplines>.snapline.vertical{height:700%;top:-300%}.joint-snaplines.joint-theme-dark .snapline.horizontal{border-bottom:1px solid #feb663}.joint-snaplines.joint-theme-dark .snapline.vertical{border-right:1px solid #feb663}.joint-snaplines.joint-theme-default .snapline.horizontal{border-bottom:1px solid #d3d3d3}.joint-snaplines.joint-theme-default .snapline.vertical{border-right:1px solid #d3d3d3}.joint-snaplines.joint-theme-material .snapline.horizontal{border-bottom:1px solid #5faaee}.joint-snaplines.joint-theme-material .snapline.vertical{border-right:1px solid #5faaee}.joint-snaplines.joint-theme-modern .snapline.horizontal{border-bottom:1px solid #2ECC71}.joint-snaplines.joint-theme-modern .snapline.vertical{border-right:1px solid #2ECC71}

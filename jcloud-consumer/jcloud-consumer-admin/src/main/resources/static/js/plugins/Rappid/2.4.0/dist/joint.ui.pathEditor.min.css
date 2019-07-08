@@ -1,0 +1,14 @@
+/*! Rappid v2.4.0 - HTML5 Diagramming Framework - TRIAL VERSION
+
+Copyright (c) 2015 client IO
+
+ 2019-07-01 
+
+
+This Source Code Form is subject to the terms of the Rappid Trial License
+, v. 2.0. If a copy of the Rappid License was not distributed with this
+file, You can obtain one at http://jointjs.com/license/rappid_v2.txt
+ or from the Rappid archive as was distributed by client IO. See the LICENSE file.*/
+
+
+.joint-path-editor{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}.joint-path-editor .anchor-point,.joint-path-editor .control-point{cursor:pointer;pointer-events:auto;border:1px solid #d3d3d3;stroke-width:1px}.joint-path-editor .control-point{fill:#4169e1;stroke:#4169e1}.joint-path-editor .control-point.locked{fill:#2e8b57;stroke:#2e8b57}.joint-path-editor .anchor-point{fill:#dc143c;stroke:#dc143c}.joint-path-editor .direction-path{stroke:#000;stroke-width:1px}.joint-path-editor .segment-path{cursor:move;pointer-events:auto;fill:none;stroke:#000;stroke-width:10px;stroke-linecap:round;stroke-linejoin:round;opacity:0;stroke-opacity:0}.joint-path-editor .segment-path:hover{opacity:.6;stroke-opacity:.6}

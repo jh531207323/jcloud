@@ -1,0 +1,14 @@
+/*! Rappid v2.4.0 - HTML5 Diagramming Framework - TRIAL VERSION
+
+Copyright (c) 2015 client IO
+
+ 2019-07-01 
+
+
+This Source Code Form is subject to the terms of the Rappid Trial License
+, v. 2.0. If a copy of the Rappid License was not distributed with this
+file, You can obtain one at http://jointjs.com/license/rappid_v2.txt
+ or from the Rappid archive as was distributed by client IO. See the LICENSE file.*/
+
+
+.joint-paper-scroller{position:relative;overflow:scroll;box-sizing:border-box;width:100%;height:100%}.joint-paper-scroller>.paper-scroller-background{margin:0;position:relative;display:inline-block}.joint-paper-scroller .joint-paper{margin:0;position:absolute;display:inline-block}.joint-paper-scroller .joint-paper>svg{display:block}.joint-paper-scroller[data-cursor=grab]{cursor:all-scroll;cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.joint-paper-scroller[data-cursor=grab].is-panning{cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.joint-paper-scroller.joint-theme-dark>.paper-scroller-background{background:#18191b}.joint-paper-scroller.joint-theme-dark .joint-paper{border:1px dotted #fefefe}.joint-paper-scroller.joint-theme-material{background-color:#f3f5fa}.joint-paper-scroller.joint-theme-modern{background-color:#f6f6f6}.joint-paper-scroller.joint-theme-modern .joint-paper{box-shadow:0 0 2px #d3d3d3}

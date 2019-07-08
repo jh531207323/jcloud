@@ -1,0 +1,14 @@
+/*! Rappid v2.4.0 - HTML5 Diagramming Framework - TRIAL VERSION
+
+Copyright (c) 2015 client IO
+
+ 2019-07-01 
+
+
+This Source Code Form is subject to the terms of the Rappid Trial License
+, v. 2.0. If a copy of the Rappid License was not distributed with this
+file, You can obtain one at http://jointjs.com/license/rappid_v2.txt
+ or from the Rappid archive as was distributed by client IO. See the LICENSE file.*/
+
+
+.joint-flash-message .fg{top:0;max-width:30%;min-width:300px;right:20px;left:auto}.joint-flash-message .titlebar{border-radius:0;border-bottom:0}.joint-flash-message.joint-theme-default .fg{border-radius:5px;background-color:#7c68fc}.joint-flash-message.joint-theme-default .titlebar{padding:5px 25px 5px 5px}.joint-flash-message.joint-theme-default .body{color:#fff}.joint-flash-message.joint-theme-default[data-type=alert] .fg{background-color:#fe854f}.joint-flash-message.joint-theme-default[data-type=warning] .fg{background-color:#feb663}.joint-flash-message.joint-theme-default[data-type=success] .fg{background-color:#31d0c6}.joint-flash-message.joint-theme-default[data-type=neutral] .fg{background-color:#efefef}.joint-flash-message.joint-theme-default[data-type=neutral] .body{color:#696c8a;text-shadow:none}
