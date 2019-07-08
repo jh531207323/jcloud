@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>title</title>
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, device-scalable=no" name="viewport">
     <!-- Bootstrap 3.4.1-->
     <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -202,7 +202,7 @@
                     <div class="form-inline">
                         <div class="input-group">
                             <span class="input-group-addon">
-                                角色组名称
+                                设备名称
                             </span>
                             <input id="txtName" type="text" class="form-control">
                         </div>
@@ -269,15 +269,15 @@
 
         loadGrid({
             gridTableSelector: "#gridTable",
-            url: "/admin/rolegroup/page",
+            url: "/phm/device/page",
             datatype: "json",
             mtype: "GET",
             sortname: "id",
             sortorder: "asc",
             colNames: [
                 "ID",
-                "角色组编号",
-                "角色组名称",
+                "设备编号",
+                "设备名称",
                 "是否有效",
                 "创建时间",
             ],
@@ -288,13 +288,13 @@
                     hidden: true,
                 },
                 {
-                    name: "roleGroupCode",
-                    index: "roleGroupCode",
+                    name: "deviceCode",
+                    index: "deviceCode",
                     sortable: true
                 },
                 {
-                    name: "roleGroupName",
-                    index: "roleGroupName",
+                    name: "deviceName",
+                    index: "deviceName",
                     sortable: true
                 },
                 {
@@ -348,7 +348,7 @@
             $(gridTableSelector).jqGrid("setGridParam",
                 {
                     postData: {
-                        roleGroupName: $("#txtName").val()
+                        deviceName: $("#txtName").val()
                     },
                     page: 1,
                 }
@@ -369,7 +369,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area: ['850px', '400px'],
-                content: '/admin/rolegroup/view/add'
+                content: '/phm/device/view/add'
             });
         });
 
@@ -390,7 +390,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area: ['850px', '400px'],
-                content: '/admin/rolegroup/view/add?id=' + rowData.id
+                content: '/phm/device/view/add?id=' + rowData.id
             });
         });
 
@@ -413,7 +413,7 @@
 
             alertDeleteConfirm(function () {
                 executeAjax({
-                    url: "/admin/rolegroup/delete",
+                    url: "/phm/device/delete",
                     data: postData,
                     beforeSendAction: function () {
                         disableControl("#btnDelete");

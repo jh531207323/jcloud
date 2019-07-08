@@ -215,18 +215,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="userGroupCode" class="col-xs-2 control-label">用户组编号</label>
+                            <label for="flowNodeTypeCode" class="col-xs-2 control-label">流程节点类型编号</label>
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" id="userGroupCode" name="userGroupCode"
+                                <input type="text" class="form-control" id="flowNodeTypeCode" name="flowNodeTypeCode"
                                        data-toggle="tooltip" title="主键,必须唯一,不能为空."/>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="userGroupName" class="col-xs-2 control-label">用户组名称</label>
+                            <label for="flowNodeTypeName" class="col-xs-2 control-label">流程节点类型名称</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="text" id="userGroupName" name="userGroupName"
-                                       data-toggle="tooltip" title="用户组名称"/>
+                                <input class="form-control" type="text" id="flowNodeTypeName" name="flowNodeTypeName"
+                                       data-toggle="tooltip" title="流程节点类型名称"/>
                             </div>
                         </div>
                     </div>
@@ -275,7 +275,7 @@
             excluded: ":disabled",   // <=== Adding the 'excluded' option
             fields: {
 
-                userGroupCode: {
+                flowNodeTypeCode: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -291,7 +291,7 @@
                         }
                     }
                 },
-                userGroupName: {
+                flowNodeTypeName: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -363,7 +363,7 @@
 
             //获取数据
             getModel({
-                url: "/admin/usergroup/get/" + operationId,
+                url: "/phm/flownodetype/get/" + operationId,
                 showSuccessInfo: false,
                 beforeSendAction: function () {
                     disableControl("#btnOk");
@@ -393,9 +393,9 @@
                 return;
             }
 
-            var operationUrl = "/admin/usergroup/add";
+            var operationUrl = "/phm/flownodetype/add";
             if (operationType == "update") {
-                operationUrl = "/admin/usergroup/update";
+                operationUrl = "/phm/flownodetype/update";
             }
 
             submitForm({

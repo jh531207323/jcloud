@@ -215,18 +215,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="userGroupCode" class="col-xs-2 control-label">用户组编号</label>
+                            <label for="flowHandlerTypeCode" class="col-xs-2 control-label">流程节点处理类型编号</label>
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" id="userGroupCode" name="userGroupCode"
+                                <input type="text" class="form-control" id="flowHandlerTypeCode" name="flowHandlerTypeCode"
                                        data-toggle="tooltip" title="主键,必须唯一,不能为空."/>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="userGroupName" class="col-xs-2 control-label">用户组名称</label>
+                            <label for="flowHandlerTypeName" class="col-xs-2 control-label">流程节点处理类型名称</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="text" id="userGroupName" name="userGroupName"
-                                       data-toggle="tooltip" title="用户组名称"/>
+                                <input class="form-control" type="text" id="flowHandlerTypeName" name="flowHandlerTypeName"
+                                       data-toggle="tooltip" title="流程节点处理类型名称"/>
                             </div>
                         </div>
                     </div>
@@ -275,7 +275,7 @@
             excluded: ":disabled",   // <=== Adding the 'excluded' option
             fields: {
 
-                userGroupCode: {
+                flowHandlerTypeCode: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -291,7 +291,7 @@
                         }
                     }
                 },
-                userGroupName: {
+                flowHandlerTypeName: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -302,7 +302,7 @@
                             message: "长度大于1位并且小于30位."
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_\-\u4e00-\u9fa5]+$/,
+                            regexp: /^[a-zA-Z0-9_#\+\-\u4e00-\u9fa5]+$/,
                             message: "只能由字母、数字、下划线、横线、中文."
                         }
                     }
@@ -363,7 +363,7 @@
 
             //获取数据
             getModel({
-                url: "/admin/usergroup/get/" + operationId,
+                url: "/phm/flowhandlertype/get/" + operationId,
                 showSuccessInfo: false,
                 beforeSendAction: function () {
                     disableControl("#btnOk");
@@ -393,9 +393,9 @@
                 return;
             }
 
-            var operationUrl = "/admin/usergroup/add";
+            var operationUrl = "/phm/flowhandlertype/add";
             if (operationType == "update") {
-                operationUrl = "/admin/usergroup/update";
+                operationUrl = "/phm/flowhandlertype/update";
             }
 
             submitForm({

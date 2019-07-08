@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>title</title>
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="width=collection-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.4.1-->
     <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -24,7 +24,8 @@
     <link href="/template/AdminLTE/2.4.10/plugins/iCheck/all.css" rel="stylesheet">
     <!-- Select2 -->
     <link href="/template/AdminLTE/2.4.10/bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
-
+    <!-- jsonedit -->
+    <link href="/js/plugins/jsoneditor/jsoneditor-6.1.0/dist/jsoneditor.css" rel="stylesheet">
 
     <!-- jqGrid styles -->
     <!--<link href="/template/AdminLTE/2.4.10/bower_components/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />-->
@@ -83,6 +84,9 @@
 
     <!-- Select2 -->
     <script src="/template/AdminLTE/2.4.10/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+    <!-- jsonedit -->
+    <script src="/js/plugins/jsoneditor/jsoneditor-6.1.0/dist/jsoneditor.js"></script>
 
     <!--jqgrid scripts-->
     <script src="/js/plugins/jqGrid/5.0.2/jquery.jqGrid.min.js"></script>
@@ -215,18 +219,29 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="userGroupCode" class="col-xs-2 control-label">用户组编号</label>
+                            <label for="collectionTypeCode" class="col-xs-2 control-label">采集类型编号</label>
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" id="userGroupCode" name="userGroupCode"
+                                <input type="text" class="form-control" id="collectionTypeCode" name="collectionTypeCode"
                                        data-toggle="tooltip" title="主键,必须唯一,不能为空."/>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="userGroupName" class="col-xs-2 control-label">用户组名称</label>
+                            <label for="collectionTypeName" class="col-xs-2 control-label">采集类型名称</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="text" id="userGroupName" name="userGroupName"
-                                       data-toggle="tooltip" title="用户组名称"/>
+                                <input class="form-control" type="text" id="collectionTypeName" name="collectionTypeName"
+                                       data-toggle="tooltip" title="采集类型名称"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="collectionConfig" class="col-xs-2 control-label">采集配置</label>
+                            <div class="col-xs-10">
+                                <div id="jsoneditor">
+
+                                </div>
+                                <input class="form-control" type="text" id="collectionConfig" name="collectionConfig"
+                                       data-toggle="tooltip" title="采集配置" readonly="readonly"/>
                             </div>
                         </div>
                     </div>
@@ -275,7 +290,7 @@
             excluded: ":disabled",   // <=== Adding the 'excluded' option
             fields: {
 
-                userGroupCode: {
+                collectionTypeCode: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -291,7 +306,7 @@
                         }
                     }
                 },
-                userGroupName: {
+                collectionTypeName: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -306,9 +321,61 @@
                             message: "只能由字母、数字、下划线、横线、中文."
                         }
                     }
+                },
+                collectionConfig: {
+                    validators: {
+//                        notEmpty: {
+//                            message: "必填项."
+//                        },
+//                        stringLength: {
+//                            min: 1,
+//                            max: 30,
+//                            message: "长度大于1位并且小于30位."
+//                        },
+//                        regexp: {
+//                            regexp: /^[a-zA-Z0-9_\-\u4e00-\u9fa5]+$/,
+//                            message: "只能由字母、数字、下划线、横线、中文."
+//                        }
+                    }
                 }
             }
         });
+    }
+
+    function initJsonEditor()
+    {
+        var container, options, json, editor;
+
+        container = document.getElementById('jsoneditor');
+
+        options = {
+            mode: 'tree',
+            modes: ['code', 'form', 'text', 'tree', 'view'], // allowed modes
+            onError: function (err) {
+                alertWarning("Json格式化错误：" + err.toString());
+            },
+            onChange: function () {
+                var json = window.editor.get();
+                $("#collectionConfig").val(JSON.stringify(json, null, 2));
+            },
+            onModeChange: function (mode) {
+
+            },
+            indentation: 4,
+            escapeUnicode: true,
+            onTextSelectionChange: function(start, end, text) {
+
+            },
+            onSelectionChange: function(start, end) {
+
+            }
+        };
+
+        window.editor = new JSONEditor(container, options);
+        window.editor.setMode("code");
+
+        //默认空json
+        $("#collectionConfig").val("{}");
     }
 
     var operationId;
@@ -353,6 +420,8 @@
             language: "zh-CN",//汉化
         });
 
+        initJsonEditor();
+
         //验证表单
         validationForm();
 
@@ -363,7 +432,7 @@
 
             //获取数据
             getModel({
-                url: "/admin/usergroup/get/" + operationId,
+                url: "/phm/collectiontype/get/" + operationId,
                 showSuccessInfo: false,
                 beforeSendAction: function () {
                     disableControl("#btnOk");
@@ -375,6 +444,19 @@
 
                     //填充表单
                     fillJsonToForm("formMain", data);
+
+                    //设置JSON
+                    try
+                    {
+                        if(data.collectionConfig) {
+                            var json = JSON.parse(data.collectionConfig);
+                            window.editor.set(json);
+                        }
+                    }
+                    catch(e)
+                    {
+                        alertWarning("采集配置Json格式化错误" + data.collectionConfig);
+                    }
                 },
                 failCallBack: function (data) {
 
@@ -393,9 +475,17 @@
                 return;
             }
 
-            var operationUrl = "/admin/usergroup/add";
+            //判断JSON是否验证成功
+            try {
+                window.editor.get();
+            }catch(e){
+                alertWarning("采集配置Json格式错误");
+                return;
+            }
+
+            var operationUrl = "/phm/collectiontype/add";
             if (operationType == "update") {
-                operationUrl = "/admin/usergroup/update";
+                operationUrl = "/phm/collectiontype/update";
             }
 
             submitForm({

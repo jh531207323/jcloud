@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>title</title>
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, device-scalable=no" name="viewport">
     <!-- Bootstrap 3.4.1-->
     <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -24,7 +24,12 @@
     <link href="/template/AdminLTE/2.4.10/plugins/iCheck/all.css" rel="stylesheet">
     <!-- Select2 -->
     <link href="/template/AdminLTE/2.4.10/bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
-
+    <!-- switch -->
+    <link href="/js/plugins/bootstrap-switch-3.3.4/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
+    <!-- codemirror -->
+    <link rel="stylesheet" href="/js/plugins/CodeMirror/5.48.0/lib/codemirror.css">
+    <link rel="stylesheet" href="/js/plugins/CodeMirror/5.48.0/addon/fold/foldgutter.css">
+    <link rel="stylesheet" href="/js/plugins/CodeMirror/5.48.0/addon/display/fullscreen.css">
 
     <!-- jqGrid styles -->
     <!--<link href="/template/AdminLTE/2.4.10/bower_components/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />-->
@@ -83,6 +88,25 @@
 
     <!-- Select2 -->
     <script src="/template/AdminLTE/2.4.10/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+    <!-- switch -->
+    <script src="/js/plugins/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
+
+    <!-- codemirror -->
+    <link rel="stylesheet" href="/js/plugins/CodeMirror/5.48.0/lib/codemirror.css">
+    <script src="/js/plugins/CodeMirror/5.48.0/lib/codemirror.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/addon/display/fullscreen.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/addon/selection/active-line.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/addon/edit/matchbrackets.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/addon/fold/foldcode.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/addon/fold/foldgutter.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/addon/fold/brace-fold.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/addon/fold/xml-fold.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/addon/fold/indent-fold.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/addon/fold/markdown-fold.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/addon/fold/comment-fold.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/mode/javascript/javascript.js"></script>
+    <script src="/js/plugins/CodeMirror/5.48.0/mode/python/python.js"></script>
 
     <!--jqgrid scripts-->
     <script src="/js/plugins/jqGrid/5.0.2/jquery.jqGrid.min.js"></script>
@@ -179,6 +203,15 @@
         .modal-footer button {
             padding: 1px 6px;
         }
+
+        .CodeMirror {
+            border-width: 2px;
+            border-style: solid;
+            border-color: #71a6fb;
+            font-size:13px;
+            /*height: auto;*/
+        }
+
     </style>
 
 </head>
@@ -215,20 +248,59 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="userGroupCode" class="col-xs-2 control-label">用户组编号</label>
+                            <label for="flowHandlerTypeID" class="col-xs-2 control-label">流程节点处理类型</label>
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" id="userGroupCode" name="userGroupCode"
+                                <select class="form-control select2" style="width: 100%;" id="flowHandlerTypeID"
+                                        name="flowHandlerTypeID" data-toggle="tooltip"
+                                        title="必选">
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="flowHandlerCode" class="col-xs-2 control-label">流程节点处理编号</label>
+                            <div class="col-xs-10">
+                                <input type="text" class="form-control" id="flowHandlerCode" name="flowHandlerCode"
                                        data-toggle="tooltip" title="主键,必须唯一,不能为空."/>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="userGroupName" class="col-xs-2 control-label">用户组名称</label>
+                            <label for="flowHandlerName" class="col-xs-2 control-label">流程节点处理名称</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="text" id="userGroupName" name="userGroupName"
-                                       data-toggle="tooltip" title="用户组名称"/>
+                                <input class="form-control" type="text" id="flowHandlerName" name="flowHandlerName"
+                                       data-toggle="tooltip" title="流程节点处理名称"/>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="script" class="col-xs-2 control-label">脚本</label>
+                            <div class="col-xs-10">
+                                <textarea id="script" name="script"></textarea>
+<!--                                <input class="form-control" type="text" id="script" name="script"-->
+<!--                                       data-toggle="tooltip" title="脚本"/>-->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="scriptConfig" class="col-xs-2 control-label">脚本配置</label>
+                            <div class="col-xs-10">
+                                <textarea id="scriptConfig" name="scriptConfig"></textarea>
+<!--                                <input class="form-control" type="text" id="scriptConfig" name="scriptConfig"-->
+<!--                                       data-toggle="tooltip" title="脚本配置"/>-->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="config" class="col-xs-2 control-label">运行配置1</label>
+                            <div class="col-xs-10">
+                                <textarea id="config" name="config"></textarea>
+<!--                                <input class="form-control" type="text" id="config" name="config"-->
+<!--                                       data-toggle="tooltip" title="运行配置"/>-->
+                            </div>
+                        </div>
+
                     </div>
 
                 </form>
@@ -275,7 +347,26 @@
             excluded: ":disabled",   // <=== Adding the 'excluded' option
             fields: {
 
-                userGroupCode: {
+                flowHandlerTypeID: {
+                    validators: {
+                        notEmpty: {
+                            message: "必填项."
+                        },
+                        callback: {
+                            message: '请选择一项',
+                            callback: function(value, validator) {
+
+                                if(value == undefined || value == null || value == 0 || value == "") {
+                                    return false;
+                                }
+                                else {
+                                    return  true;
+                                }
+                            }
+                        }
+                    }
+                },
+                flowHandlerCode: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -291,7 +382,7 @@
                         }
                     }
                 },
-                userGroupName: {
+                flowHandlerName: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -306,6 +397,24 @@
                             message: "只能由字母、数字、下划线、横线、中文."
                         }
                     }
+                }
+            }
+        });
+    }
+
+    function initEditor(controlId)
+    {
+        var editor = CodeMirror.fromTextArea(document.getElementById(controlId), {
+            lineNumbers: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            //viewportMargin: Infinity,
+            extraKeys: {
+                "F11": function(cm) {
+                    cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                },
+                "Esc": function(cm) {
+                    if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
                 }
             }
         });
@@ -353,6 +462,14 @@
             language: "zh-CN",//汉化
         });
 
+        $('.switch').bootstrapSwitch();
+
+        fillSelectRemote("#flowHandlerTypeID", "/phm/flowhandlertype/find", "flowHandlerTypeName", "id", true);
+
+        initEditor("script");
+        initEditor("scriptConfig");
+        initEditor("config");
+
         //验证表单
         validationForm();
 
@@ -363,7 +480,7 @@
 
             //获取数据
             getModel({
-                url: "/admin/usergroup/get/" + operationId,
+                url: "/phm/flowhandler/get/" + operationId,
                 showSuccessInfo: false,
                 beforeSendAction: function () {
                     disableControl("#btnOk");
@@ -375,6 +492,7 @@
 
                     //填充表单
                     fillJsonToForm("formMain", data);
+
                 },
                 failCallBack: function (data) {
 
@@ -393,9 +511,9 @@
                 return;
             }
 
-            var operationUrl = "/admin/usergroup/add";
+            var operationUrl = "/phm/flowhandler/add";
             if (operationType == "update") {
-                operationUrl = "/admin/usergroup/update";
+                operationUrl = "/phm/flowhandler/update";
             }
 
             submitForm({

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>title</title>
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, device-scalable=no" name="viewport">
     <!-- Bootstrap 3.4.1-->
     <link rel="stylesheet" href="/template/AdminLTE/2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -24,6 +24,8 @@
     <link href="/template/AdminLTE/2.4.10/plugins/iCheck/all.css" rel="stylesheet">
     <!-- Select2 -->
     <link href="/template/AdminLTE/2.4.10/bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- switch -->
+    <link href="/js/plugins/bootstrap-switch-3.3.4/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
 
 
     <!-- jqGrid styles -->
@@ -83,6 +85,9 @@
 
     <!-- Select2 -->
     <script src="/template/AdminLTE/2.4.10/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+    <!-- switch -->
+    <script src="/js/plugins/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
 
     <!--jqgrid scripts-->
     <script src="/js/plugins/jqGrid/5.0.2/jquery.jqGrid.min.js"></script>
@@ -215,20 +220,43 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="userGroupCode" class="col-xs-2 control-label">用户组编号</label>
+                            <label for="collectionTypeID" class="col-xs-2 control-label">采集类型</label>
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" id="userGroupCode" name="userGroupCode"
+                                <select class="form-control select2" style="width: 100%;" id="collectionTypeID"
+                                        name="collectionTypeID" data-toggle="tooltip"
+                                        title="必选">
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deviceID" class="col-xs-2 control-label">采集设备</label>
+                            <div class="col-xs-10">
+                                <select class="form-control select2" style="width: 100%;" id="deviceID"
+                                        name="deviceID" data-toggle="tooltip"
+                                        title="必选">
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="collectionNodeCode" class="col-xs-2 control-label">采集点编号</label>
+                            <div class="col-xs-10">
+                                <input type="text" class="form-control" id="collectionNodeCode" name="collectionNodeCode"
                                        data-toggle="tooltip" title="主键,必须唯一,不能为空."/>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="userGroupName" class="col-xs-2 control-label">用户组名称</label>
+                            <label for="collectionNodeName" class="col-xs-2 control-label">采集点名称</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="text" id="userGroupName" name="userGroupName"
-                                       data-toggle="tooltip" title="用户组名称"/>
+                                <input class="form-control" type="text" id="collectionNodeName" name="collectionNodeName"
+                                       data-toggle="tooltip" title="采集点名称"/>
                             </div>
                         </div>
+
                     </div>
 
                 </form>
@@ -275,7 +303,45 @@
             excluded: ":disabled",   // <=== Adding the 'excluded' option
             fields: {
 
-                userGroupCode: {
+                collectionTypeID: {
+                    validators: {
+                        notEmpty: {
+                            message: "必填项."
+                        },
+                        callback: {
+                            message: '请选择一项',
+                            callback: function(value, validator) {
+
+                                if(value == undefined || value == null || value == 0 || value == "") {
+                                    return false;
+                                }
+                                else {
+                                    return  true;
+                                }
+                            }
+                        }
+                    }
+                },
+                deviceID: {
+                    validators: {
+                        notEmpty: {
+                            message: "必填项."
+                        },
+                        callback: {
+                            message: '请选择一项',
+                            callback: function(value, validator) {
+
+                                if(value == undefined || value == null || value == 0 || value == "") {
+                                    return false;
+                                }
+                                else {
+                                    return  true;
+                                }
+                            }
+                        }
+                    }
+                },
+                collectionNodeCode: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -291,7 +357,7 @@
                         }
                     }
                 },
-                userGroupName: {
+                collectionNodeName: {
                     validators: {
                         notEmpty: {
                             message: "必填项."
@@ -353,6 +419,11 @@
             language: "zh-CN",//汉化
         });
 
+        $('.switch').bootstrapSwitch();
+
+        fillSelectRemote("#collectionTypeID", "/phm/collectiontype/find", "collectionTypeName", "id", true);
+        fillSelectRemote("#deviceID", "/phm/device/find", "deviceName", "id", true);
+
         //验证表单
         validationForm();
 
@@ -363,7 +434,7 @@
 
             //获取数据
             getModel({
-                url: "/admin/usergroup/get/" + operationId,
+                url: "/phm/collectionnode/get/" + operationId,
                 showSuccessInfo: false,
                 beforeSendAction: function () {
                     disableControl("#btnOk");
@@ -375,6 +446,7 @@
 
                     //填充表单
                     fillJsonToForm("formMain", data);
+
                 },
                 failCallBack: function (data) {
 
@@ -393,9 +465,9 @@
                 return;
             }
 
-            var operationUrl = "/admin/usergroup/add";
+            var operationUrl = "/phm/collectionnode/add";
             if (operationType == "update") {
-                operationUrl = "/admin/usergroup/update";
+                operationUrl = "/phm/collectionnode/update";
             }
 
             submitForm({

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>流程构建器</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/dist/rappid.min.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/css/theme-picker.css">
+
+    <!-- theme-specific application CSS  -->
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/css/style.dark.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/css/style.material.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/css/style.modern.css">
+
+    <style type="text/css">
+        .joint-widget.joint-theme-modern[data-type=save]:after {
+            background-position: 0 -155px
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <div class="app-header">
+              <div class="app-title">
+                  <h1>流程构建器</h1>
+              </div>
+              <div class="toolbar-container"></div>
+        </div>
+        <div class="app-body">
+              <div class="stencil-container"></div>
+              <div class="paper-container"></div>
+              <div class="inspector-container"></div>
+              <div class="navigator-container"></div>
+        </div>
+    </div>
+
+    <!-- Rappid/JointJS dependencies: -->
+    <script src="/js/plugins/Rappid/2.4.0/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/node_modules/lodash/index.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/node_modules/backbone/backbone.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/node_modules/graphlib/dist/graphlib.core.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/node_modules/dagre/dist/dagre.core.js"></script>
+
+    <script src="/js/plugins/Rappid/2.4.0/dist/rappid.min.js"></script>
+
+    <!--[if IE 9]>
+        <script>
+          // `-ms-user-select: none` doesn't work in IE9
+          document.onselectstart = function() { return false; };
+        </script>
+    <![endif]-->
+
+    <!-- Application files:  -->
+    <script src="/js/plugins/Rappid/2.4.0/js/config/halo.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/js/config/selection.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/js/config/inspector.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/js/config/stencil.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/js/config/toolbar.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/js/config/sample-graphs.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/js/views/main.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/js/views/theme-picker.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/js/models/joint.shapes.app.js"></script>
+    <script src="/js/plugins/Rappid/2.4.0/js/views/navigator.js"></script>
+
+    <script>
+        joint.setTheme('modern');
+        app = new App.MainView({ el: '#app' });
+        themePicker = new App.ThemePicker({ mainView: app });
+        themePicker.render().$el.appendTo(document.body);
+        window.addEventListener('load', function() {
+            app.graph.fromJSON(JSON.parse(App.config.flow.main));
+        });
+
+
+    </script>
+</body>
+</html>

@@ -202,7 +202,7 @@
                     <div class="form-inline">
                         <div class="input-group">
                             <span class="input-group-addon">
-                                角色组名称
+                                流程节点处理类型名称
                             </span>
                             <input id="txtName" type="text" class="form-control">
                         </div>
@@ -269,15 +269,15 @@
 
         loadGrid({
             gridTableSelector: "#gridTable",
-            url: "/admin/rolegroup/page",
+            url: "/phm/flowhandlertype/page",
             datatype: "json",
             mtype: "GET",
             sortname: "id",
             sortorder: "asc",
             colNames: [
                 "ID",
-                "角色组编号",
-                "角色组名称",
+                "流程节点处理类型编号",
+                "流程节点处理类型名称",
                 "是否有效",
                 "创建时间",
             ],
@@ -288,13 +288,13 @@
                     hidden: true,
                 },
                 {
-                    name: "roleGroupCode",
-                    index: "roleGroupCode",
+                    name: "flowHandlerTypeCode",
+                    index: "flowHandlerTypeCode",
                     sortable: true
                 },
                 {
-                    name: "roleGroupName",
-                    index: "roleGroupName",
+                    name: "flowHandlerTypeName",
+                    index: "flowHandlerTypeName",
                     sortable: true
                 },
                 {
@@ -348,7 +348,7 @@
             $(gridTableSelector).jqGrid("setGridParam",
                 {
                     postData: {
-                        roleGroupName: $("#txtName").val()
+                        flowHandlerTypeName: $("#txtName").val()
                     },
                     page: 1,
                 }
@@ -369,7 +369,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area: ['850px', '400px'],
-                content: '/admin/rolegroup/view/add'
+                content: '/phm/flowhandlertype/view/add'
             });
         });
 
@@ -390,7 +390,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area: ['850px', '400px'],
-                content: '/admin/rolegroup/view/add?id=' + rowData.id
+                content: '/phm/flowhandlertype/view/add?id=' + rowData.id
             });
         });
 
@@ -413,7 +413,7 @@
 
             alertDeleteConfirm(function () {
                 executeAjax({
-                    url: "/admin/rolegroup/delete",
+                    url: "/phm/flowhandlertype/delete",
                     data: postData,
                     beforeSendAction: function () {
                         disableControl("#btnDelete");

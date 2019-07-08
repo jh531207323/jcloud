@@ -202,7 +202,7 @@
                     <div class="form-inline">
                         <div class="input-group">
                             <span class="input-group-addon">
-                                角色组名称
+                                流程名称
                             </span>
                             <input id="txtName" type="text" class="form-control">
                         </div>
@@ -269,17 +269,18 @@
 
         loadGrid({
             gridTableSelector: "#gridTable",
-            url: "/admin/rolegroup/page",
+            url: "/phm/flow/page",
             datatype: "json",
             mtype: "GET",
             sortname: "id",
             sortorder: "asc",
             colNames: [
                 "ID",
-                "角色组编号",
-                "角色组名称",
+                "流程编号",
+                "流程名称",
                 "是否有效",
                 "创建时间",
+                "操作",
             ],
             colModel: [
                 {
@@ -288,13 +289,13 @@
                     hidden: true,
                 },
                 {
-                    name: "roleGroupCode",
-                    index: "roleGroupCode",
+                    name: "flowCode",
+                    index: "flowCode",
                     sortable: true
                 },
                 {
-                    name: "roleGroupName",
-                    index: "roleGroupName",
+                    name: "flowName",
+                    index: "flowName",
                     sortable: true
                 },
                 {
@@ -314,13 +315,28 @@
 
                         return formatHtml;
 
-
                     }
                 },
                 {
                     name: "createTime",
                     index: "createTime",
                     sortable: true
+                },
+                {
+                    name: "operation",
+                    index: "operation",
+                    sortable: false,
+                    width: 200,
+                    formatter: function (cellValue, options, rowObject) {
+
+                        var formatHtml = "";
+
+                        formatHtml += " <button type='button' class='btn btn-xs btn-flat btn-primary' onclick='openEditor(\""+ rowObject.id +"\")'><i class='fa fa-share-alt'></i> 编辑流程图</button>";
+                        formatHtml += " <button type='button' class='btn btn-xs btn-flat btn-primary' onclick='openStructure(\""+ rowObject.id +"\")'><i class='fa fa-tree'></i> 流程结构树</button>";
+
+                        return formatHtml;
+
+                    }
                 }
             ],
             ondblClickRow: function (rowId, iRow, iCol, e) {
@@ -331,13 +347,35 @@
     }
 
     //page resize function ,just use for iframe size will be changed.
-    function pageResize() {
+    function pageResize(id) {
         $("#divContent").height($(window).height() - $("#divSearch").outerHeight() - 3);
 
         $("#divTable").height($("#divContent").height() - $("#divContent .box-header").outerHeight() - 5);
 
         $(gridTableSelector).jqGrid("setGridWidth", $("#divTable").width());
         $(gridTableSelector).jqGrid("setGridHeight", $("#divTable").height() - $(".ui-jqgrid-hdiv").outerHeight(true) - $("#gridPager").outerHeight(true));
+    }
+
+    function openEditor(id) {
+        var index = layer.open({
+            type: 2,
+            title: '编辑流程图',
+            maxmin: true,
+            shadeClose: false, //点击遮罩关闭层
+            area: ['850px', '400px'],
+            content: '/phm/flow/view/editor/' + id
+        });
+    }
+
+    function openStructure() {
+        var index = layer.open({
+            type: 2,
+            title: '流程结构树',
+            maxmin: true,
+            shadeClose: false, //点击遮罩关闭层
+            area: ['850px', '400px'],
+            content: '/phm/flow/view/structure/' + id
+        });
     }
 
     //page init
@@ -348,7 +386,7 @@
             $(gridTableSelector).jqGrid("setGridParam",
                 {
                     postData: {
-                        roleGroupName: $("#txtName").val()
+                        flowName: $("#txtName").val()
                     },
                     page: 1,
                 }
@@ -369,7 +407,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area: ['850px', '400px'],
-                content: '/admin/rolegroup/view/add'
+                content: '/phm/flow/view/add'
             });
         });
 
@@ -390,7 +428,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area: ['850px', '400px'],
-                content: '/admin/rolegroup/view/add?id=' + rowData.id
+                content: '/phm/flow/view/add?id=' + rowData.id
             });
         });
 
@@ -413,7 +451,7 @@
 
             alertDeleteConfirm(function () {
                 executeAjax({
-                    url: "/admin/rolegroup/delete",
+                    url: "/phm/flow/delete",
                     data: postData,
                     beforeSendAction: function () {
                         disableControl("#btnDelete");
