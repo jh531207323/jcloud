@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>流程监控器</title>
+    <link rel="icon" href="/favicon-flow-dashboard.ico" type="image/x-icon"/>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/dist/rappid.min.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/css/theme-picker.css">
+
+    <!-- theme-specific application CSS  -->
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/css/style.dark.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/css/style.material.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/Rappid/2.4.0/css/style.modern.css">
+
+    <style type="text/css">
+
+        ::-webkit-scrollbar { /*滚动条整体样式*/
+            width: 6px; /*高宽分别对应横竖滚动条的尺寸*/
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            background: #769de9de; /*rgba(0,0,0,0.2)*/
+        }
+
+        ::-webkit-scrollbar-track { /*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 0;
+            background: #e3f1f057; /*rgba(0,0,0,0.1)*/
+        }
+
+        /*::-webkit-scrollbar-track*/
+        /*{*/
+        /*    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+        /*    background-color: #F5F5F5;*/
+        /*}*/
+
+        /*::-webkit-scrollbar*/
+        /*{*/
+        /*    width: 6px;*/
+        /*    background-color: #F5F5F5;*/
+        /*}*/
+
+        /*::-webkit-scrollbar-thumb*/
+        /*{*/
+        /*    background-color: #000000;*/
+        /*}*/
+
+        .paper-container {
+            right: 0 !important;
+        }
+
+        .navigator-container {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .app-title {
+            background: #4973ed !important;
+        }
+
+        .joint-toolbar.joint-theme-modern {
+            background: #c6d1f3 !important;;
+        }
+
+        .joint-halo.joint-theme-modern .handle.startNode {
+            background-image: url('data:image/svg+xml;charset=utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2218.75px%22%20height%3D%2218.75px%22%20viewBox%3D%220%200%2018.75%2018.75%22%20enable-background%3D%22new%200%200%2018.75%2018.75%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20fill%3D%22%236A6C8A%22%20d%3D%22M9.884%2C9.838c0.54-0.551%2C1.005-0.955%2C1.384-1.201c0.463-0.308%2C0.749-0.352%2C0.887-0.352h1.34v1.367%20c0%2C0.104%2C0.061%2C0.2%2C0.154%2C0.242s0.204%2C0.027%2C0.284-0.038l3.168-2.669c0.06-0.051%2C0.096-0.125%2C0.096-0.203S17.16%2C6.83%2C17.101%2C6.781%20l-3.168-2.677c-0.08-0.067-0.19-0.081-0.284-0.038c-0.094%2C0.045-0.154%2C0.139-0.154%2C0.242v1.414h-1.343%20c-1.24%2C0.014-2.215%2C0.67-2.927%2C1.242c-0.797%2C0.65-1.533%2C1.447-2.245%2C2.217c-0.361%2C0.391-0.7%2C0.759-1.044%2C1.1%20c-0.541%2C0.549-1.011%2C0.951-1.395%2C1.199c-0.354%2C0.231-0.678%2C0.357-0.921%2C0.357h-1.8c-0.146%2C0-0.266%2C0.12-0.266%2C0.265v2.029%20c0%2C0.148%2C0.12%2C0.268%2C0.266%2C0.268h1.8l0%2C0c1.255-0.014%2C2.239-0.667%2C2.958-1.24c0.82-0.661%2C1.572-1.475%2C2.297-2.256%20C9.225%2C10.524%2C9.555%2C10.169%2C9.884%2C9.838z%22%2F%3E%3C%2Fsvg%3E%20')
+        }
+
+        .joint-halo.joint-theme-modern .handle.startNode:hover {
+            background-image: url('data:image/svg+xml;charset=utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2218.75px%22%20height%3D%2218.75px%22%20viewBox%3D%220%200%2018.75%2018.75%22%20enable-background%3D%22new%200%200%2018.75%2018.75%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20fill%3D%22%23FD6EB6%22%20d%3D%22M9.884%2C9.838c0.54-0.551%2C1.005-0.955%2C1.384-1.201c0.463-0.308%2C0.749-0.352%2C0.887-0.352h1.34v1.367%20c0%2C0.104%2C0.061%2C0.2%2C0.154%2C0.242s0.204%2C0.027%2C0.284-0.038l3.168-2.669c0.06-0.051%2C0.096-0.125%2C0.096-0.203S17.16%2C6.83%2C17.101%2C6.781%20l-3.168-2.677c-0.08-0.067-0.19-0.081-0.284-0.038c-0.094%2C0.045-0.154%2C0.139-0.154%2C0.242v1.414h-1.343%20c-1.24%2C0.014-2.215%2C0.67-2.927%2C1.242c-0.797%2C0.65-1.533%2C1.447-2.245%2C2.217c-0.361%2C0.391-0.7%2C0.759-1.044%2C1.1%20c-0.541%2C0.549-1.011%2C0.951-1.395%2C1.199c-0.354%2C0.231-0.678%2C0.357-0.921%2C0.357h-1.8c-0.146%2C0-0.266%2C0.12-0.266%2C0.265v2.029%20c0%2C0.148%2C0.12%2C0.268%2C0.266%2C0.268h1.8l0%2C0c1.255-0.014%2C2.239-0.667%2C2.958-1.24c0.82-0.661%2C1.572-1.475%2C2.297-2.256%20C9.225%2C10.524%2C9.555%2C10.169%2C9.884%2C9.838z%22%2F%3E%3C%2Fsvg%3E%20')
+        }
+
+        .joint-halo.joint-theme-modern .handle.stopNode {
+            background-image: url('data:image/svg+xml;charset=utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2218.75px%22%20height%3D%2218.75px%22%20viewBox%3D%220%200%2018.75%2018.75%22%20enable-background%3D%22new%200%200%2018.75%2018.75%22%20xml%3Aspace%3D%22preserve%22%3E%3Cg%3E%3Cpath%20fill%3D%22%236A6C8A%22%20d%3D%22M15.386%2C3.365c-3.315-3.314-8.707-3.313-12.021%2C0c-3.314%2C3.315-3.314%2C8.706%2C0%2C12.02%20c3.314%2C3.314%2C8.707%2C3.314%2C12.021%2C0S18.699%2C6.68%2C15.386%2C3.365L15.386%2C3.365z%20M4.152%2C14.598C1.273%2C11.719%2C1.273%2C7.035%2C4.153%2C4.154%20c2.88-2.88%2C7.563-2.88%2C10.443%2C0c2.881%2C2.88%2C2.881%2C7.562%2C0%2C10.443C11.716%2C17.477%2C7.032%2C17.477%2C4.152%2C14.598L4.152%2C14.598z%22%2F%3E%3Cpath%20fill%3D%22%236A6C8A%22%20d%3D%22M12.157%2C11.371L7.38%2C6.593C7.162%2C6.375%2C6.809%2C6.375%2C6.592%2C6.592c-0.218%2C0.219-0.218%2C0.572%2C0%2C0.79%20l4.776%2C4.776c0.218%2C0.219%2C0.571%2C0.219%2C0.79%2C0C12.375%2C11.941%2C12.375%2C11.588%2C12.157%2C11.371L12.157%2C11.371z%22%2F%3E%3Cpath%20fill%3D%22%236A6C8A%22%20d%3D%22M11.369%2C6.593l-4.777%2C4.778c-0.217%2C0.217-0.217%2C0.568%2C0%2C0.787c0.219%2C0.219%2C0.571%2C0.217%2C0.788%2C0l4.777-4.777%20c0.218-0.218%2C0.218-0.571%2C0.001-0.789C11.939%2C6.375%2C11.587%2C6.375%2C11.369%2C6.593L11.369%2C6.593z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%20')
+        }
+
+        .joint-halo.joint-theme-modern .handle.stopNode:hover {
+            background-image: url('data:image/svg+xml;charset=utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2218.75px%22%20height%3D%2218.75px%22%20viewBox%3D%220%200%2018.75%2018.75%22%20enable-background%3D%22new%200%200%2018.75%2018.75%22%20xml%3Aspace%3D%22preserve%22%3E%3Cg%3E%3Cpath%20fill%3D%22%236A6C8A%22%20d%3D%22M15.386%2C3.365c-3.315-3.314-8.707-3.313-12.021%2C0c-3.314%2C3.315-3.314%2C8.706%2C0%2C12.02%20c3.314%2C3.314%2C8.707%2C3.314%2C12.021%2C0S18.699%2C6.68%2C15.386%2C3.365L15.386%2C3.365z%22%2F%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M12.157%2C11.371L7.38%2C6.593C7.162%2C6.375%2C6.809%2C6.375%2C6.592%2C6.592c-0.218%2C0.219-0.218%2C0.572%2C0%2C0.79%20l4.776%2C4.776c0.218%2C0.219%2C0.571%2C0.219%2C0.79%2C0C12.375%2C11.941%2C12.375%2C11.588%2C12.157%2C11.371L12.157%2C11.371z%22%2F%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M11.369%2C6.593l-4.777%2C4.778c-0.217%2C0.217-0.217%2C0.568%2C0%2C0.787c0.219%2C0.219%2C0.571%2C0.217%2C0.788%2C0l4.777-4.777%20c0.218-0.218%2C0.218-0.571%2C0.001-0.789C11.939%2C6.375%2C11.587%2C6.375%2C11.369%2C6.593L11.369%2C6.593z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%20')
+        }
+
+        .joint-halo.joint-theme-modern .handle.suspendNode {
+            background-image: url('data:image/svg+xml;charset=utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2218.75px%22%20height%3D%2218.75px%22%20viewBox%3D%220%200%2018.75%2018.75%22%20enable-background%3D%22new%200%200%2018.75%2018.75%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20fill%3D%22%236A6C8A%22%20d%3D%22M9.374%2C17.592c-4.176%2C0-7.57-3.401-7.57-7.575c0-4.175%2C3.395-7.574%2C7.57-7.574c0.28%2C0%2C0.56%2C0.018%2C0.837%2C0.05%20V1.268c0-0.158%2C0.099-0.3%2C0.239-0.36c0.151-0.058%2C0.315-0.026%2C0.428%2C0.086l2.683%2C2.688c0.152%2C0.154%2C0.152%2C0.399%2C0%2C0.553l-2.68%2C2.693%20c-0.115%2C0.112-0.279%2C0.147-0.431%2C0.087c-0.141-0.063-0.239-0.205-0.239-0.361V5.296C9.934%2C5.243%2C9.654%2C5.22%2C9.374%2C5.22%20c-2.646%2C0-4.796%2C2.152-4.796%2C4.797s2.154%2C4.798%2C4.796%2C4.798c2.645%2C0%2C4.798-2.153%2C4.798-4.798c0-0.214%2C0.174-0.391%2C0.391-0.391h1.991%20c0.217%2C0%2C0.394%2C0.177%2C0.394%2C0.391C16.947%2C14.19%2C13.549%2C17.592%2C9.374%2C17.592L9.374%2C17.592z%20M9.374%2C17.592%22%2F%3E%3C%2Fsvg%3E%20')
+        }
+
+        .joint-halo.joint-theme-modern .handle.suspendNode:hover {
+            background-image: url('data:image/svg+xml;charset=utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2218.75px%22%20height%3D%2218.75px%22%20viewBox%3D%220%200%2018.75%2018.75%22%20enable-background%3D%22new%200%200%2018.75%2018.75%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20fill%3D%22%23FD6EB6%22%20d%3D%22M9.374%2C17.592c-4.176%2C0-7.57-3.401-7.57-7.575c0-4.175%2C3.395-7.574%2C7.57-7.574c0.28%2C0%2C0.56%2C0.018%2C0.837%2C0.05%20V1.268c0-0.158%2C0.099-0.3%2C0.239-0.36c0.151-0.058%2C0.315-0.026%2C0.428%2C0.086l2.683%2C2.688c0.152%2C0.154%2C0.152%2C0.399%2C0%2C0.553l-2.68%2C2.693%20c-0.115%2C0.112-0.279%2C0.147-0.431%2C0.087c-0.141-0.063-0.239-0.205-0.239-0.361V5.296C9.934%2C5.243%2C9.654%2C5.22%2C9.374%2C5.22%20c-2.646%2C0-4.796%2C2.152-4.796%2C4.797s2.154%2C4.798%2C4.796%2C4.798c2.645%2C0%2C4.798-2.153%2C4.798-4.798c0-0.214%2C0.174-0.391%2C0.391-0.391h1.991%20c0.217%2C0%2C0.394%2C0.177%2C0.394%2C0.391C16.947%2C14.19%2C13.549%2C17.592%2C9.374%2C17.592L9.374%2C17.592z%20M9.374%2C17.592%22%2F%3E%3C%2Fsvg%3E%20')
+        }
+
+        .joint-halo.joint-theme-modern .handle.configNode {
+            background-image: url('data:image/svg+xml;charset=utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2218.75px%22%20height%3D%2218.75px%22%20viewBox%3D%220%200%2018.75%2018.75%22%20enable-background%3D%22new%200%200%2018.75%2018.75%22%20xml%3Aspace%3D%22preserve%22%3E%3Cg%3E%3Cpath%20fill%3D%22%236A6C8A%22%20d%3D%22M12.852%2C0.875h-9.27c-0.853%2C0-1.547%2C0.694-1.547%2C1.547v10.816h1.547V2.422h9.27V0.875z%20M15.172%2C3.965h-8.5%20c-0.849%2C0-1.547%2C0.698-1.547%2C1.547v10.816c0%2C0.849%2C0.698%2C1.547%2C1.547%2C1.547h8.5c0.85%2C0%2C1.543-0.698%2C1.543-1.547V5.512%20C16.715%2C4.663%2C16.021%2C3.965%2C15.172%2C3.965L15.172%2C3.965z%20M15.172%2C16.328h-8.5V5.512h8.5V16.328z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%20')
+        }
+
+        .joint-halo.joint-theme-modern .handle.configNode:hover {
+            background-image: url('data:image/svg+xml;charset=utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2218.75px%22%20height%3D%2218.75px%22%20viewBox%3D%220%200%2018.75%2018.75%22%20enable-background%3D%22new%200%200%2018.75%2018.75%22%20xml%3Aspace%3D%22preserve%22%3E%3Cg%3E%3Cpath%20fill%3D%22%23FD6EB6%22%20d%3D%22M12.852%2C0.875h-9.27c-0.853%2C0-1.547%2C0.694-1.547%2C1.547v10.816h1.547V2.422h9.27V0.875z%20M15.172%2C3.965h-8.5%20c-0.849%2C0-1.547%2C0.698-1.547%2C1.547v10.816c0%2C0.849%2C0.698%2C1.547%2C1.547%2C1.547h8.5c0.849%2C0%2C1.543-0.698%2C1.543-1.547V5.512%20C16.715%2C4.663%2C16.021%2C3.965%2C15.172%2C3.965L15.172%2C3.965z%20M15.172%2C16.328h-8.5V5.512h8.5V16.328z%20M15.172%2C16.328%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%20')
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div class="app-header">
+        <div class="app-title">
+            <h1>流程监控器</h1>
+        </div>
+        <div class="toolbar-container"></div>
+    </div>
+    <div class="app-body">
+        <div class="stencil-container"></div>
+        <div class="paper-container"></div>
+        <div class="inspector-container" hidden></div>
+        <div class="navigator-container"></div>
+    </div>
+</div>
+
+<script src="/js/plugins/Rappid/2.4.0/js/views/jh.joint.js"></script>
+<!-- Rappid/JointJS dependencies: -->
+<script src="/js/plugins/Rappid/2.4.0/node_modules/jquery/dist/jquery.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/node_modules/lodash/index.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/node_modules/backbone/backbone.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/node_modules/graphlib/dist/graphlib.core.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/node_modules/dagre/dist/dagre.core.js"></script>
+
+<script src="/js/plugins/Rappid/2.4.0/dist/rappid.min.js"></script>
+
+
+<!-- sweetalert -->
+<link href="/js/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+<!--sweetalert scripts-->
+<script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+<script src="/js/plugins/layer/layer.js"></script>
+
+<!-- form.js -->
+<script src="/js/jh.sweetalert.js"></script>
+<script src="/js/jh.form.js"></script>
+<script src="/js/jh.util.js"></script>
+
+<style type="text/css">
+    .pass_ok {
+        background: #5cb85c;
+    }
+
+    .pass_failed {
+        background: #d9534f;
+    }
+
+    .pass_warning {
+        background: #ec971f;
+    }
+
+    .analysis {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .analysis li {
+        font-size: 13px;
+    }
+
+    .joint-paper-grid {
+        background: none !important;
+    }
+
+    .joint-type-flow-group {
+        cursor: default !important;
+    }
+
+    .joint-type-flow-label {
+        cursor: default !important;
+    }
+
+    .joint-element:not(.joint-type-flow-group):not(.joint-type-flow-label) {
+        cursor: pointer !important;
+    }
+
+    .joint-selection.selected {
+        cursor: pointer !important;
+    }
+</style>
+<script>
+
+    var operationId;
+    var operationType;
+    window.currentFlow = [];
+    window.flowHandlers = [];
+    window.flowNodeTypes = [];
+
+    // //加载层-风格4
+    // layer.msg('加载中', {
+    //     icon: 16
+    //     , shade: 0.01
+    // });
+
+    var loadingIndex = layer.load(1, {
+        content: "<div style='margin-left:-23px;padding-top:44px;width:120px;color:#FFF;'><span id='loadProgressText' >...</span></div>",
+        shade: [0.5, '#8aea9a'] //0.1透明度的白色背景
+    });
+
+    $("#loadProgressText").text("加载数据...");
+
+    function initData() {
+        getFlow();
+    }
+
+    initData();
+
+    window.checkNode = checkNode;
+
+    //流程运行
+    window.flowRun = function () {
+        alert('流程运行');
+    };
+
+    //流程停止
+    window.flowStop = function () {
+        alert('流程停止');
+    };
+
+    //流程挂起
+    window.flowSuspend = function () {
+        alert('流程挂起');
+    };
+
+    //节点运行
+    window.startNode = function (element) {
+        //alert('节点运行');
+    };
+
+    //节点停止
+    window.stopNode = function (element) {
+        alert('节点停止');
+    };
+
+    //节点挂起
+    window.suspendNode = function (element) {
+        alert('节点挂起');
+    };
+
+    //节点配置
+    window.configNode = function (element) {
+        alert('节点配置');
+    };
+</script>
+
+<!--[if IE 9]>
+<script>
+    // `-ms-user-select: none` doesn't work in IE9
+    document.onselectstart = function () {
+        return false;
+    };
+</script>
+<![endif]-->
+
+<!-- Application files:  -->
+<script src="/js/plugins/Rappid/2.4.0/js/config/halo-dashboard.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/js/config/selection.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/js/config/inspector.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/js/config/stencil-dashboard.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/js/config/toolbar-dashboard.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/js/config/sample-graphs.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/js/views/main-dashboard.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/js/views/theme-picker.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/js/models/joint.shapes.app.js"></script>
+<script src="/js/plugins/Rappid/2.4.0/js/views/navigator.js"></script>
+
+<script>
+
+    var flow;
+
+    $("#loadProgressText").text("加载流程...");
+
+    joint.setTheme('modern');
+    app = new App.MainView({el: '#app'});
+    themePicker = new App.ThemePicker({mainView: app});
+    themePicker.render().$el.appendTo(document.body);
+    window.addEventListener('load', function () {
+        var jsonString;
+
+        if (window.currentFlow && window.currentFlow.length > 0) {
+            jsonString = window.currentFlow;
+        } else {
+            jsonString = App.config.flow.main;
+        }
+
+        var json = JSON.parse(jsonString);
+
+        //将取出的配置节点全部重置
+        //绿色，运行
+        //灰色，停用
+        //蓝色，挂起
+        //红色，错误
+
+        var color_node_run = '#5aff4f';
+        var color_node_stop = '#8f8f8f';
+        var color_node_suspend = '#7c8aff';
+        var color_node_error = '#ff5651';
+
+        for (var i = 0; i < json.cells.length; i++) {
+
+            var node = json.cells[i];
+            if (node.type == "flow.Rectangle" ||
+                node.type == "flow.RectangularModel") {
+                node.attrs.body.stroke = color_node_stop;
+            }
+            else if (node.type == "flow.Polygon") {
+                node.attrs.body.stroke = color_node_stop;
+            }
+            else if (node.type == "flow.Cylinder") {
+
+                node.attrs.body.stroke = color_node_stop;
+                node.attrs.top.stroke = color_node_stop;
+                node.attrs.top.fill = color_node_stop;
+            }
+        }
+
+        app.graph.fromJSON(json);
+
+        //$("g").attr("draggable", "false");
+
+        layer.close(loadingIndex);
+
+        function fireTransition(t, sec) {
+
+            var inbound = app.graph.getConnectedLinks(t, {inbound: true});
+            var outbound = app.graph.getConnectedLinks(t, {outbound: true});
+
+            var placesBefore = inbound.map(function (link) {
+                return link.getSourceElement();
+            });
+            var placesAfter = outbound.map(function (link) {
+                return link.getTargetElement();
+            });
+
+            var isFirable = true;
+            placesBefore.forEach(function (p) {
+                if (p.get('tokens') === 0) {
+                    isFirable = false;
+                }
+            });
+
+            if (isFirable) {
+
+                placesBefore.forEach(function (p) {
+                    // Let the execution finish before adjusting the value of tokens. So that we can loop over all transitions
+                    // and call fireTransition() on the original number of tokens.
+                    setTimeout(function () {
+                        p.set('tokens', p.get('tokens') - 1);
+                    }, 0);
+
+                    var links = inbound.filter(function (l) {
+                        return l.getSourceElement() === p;
+                    });
+
+                    links.forEach(function (l) {
+                        var token = V('circle', {r: 5, fill: '#feb662'});
+                        l.findView(app.paper).sendToken(token, sec * 1000);
+                    });
+                });
+
+                placesAfter.forEach(function (p) {
+
+                    var links = outbound.filter(function (l) {
+                        return l.getTargetElement() === p;
+                    });
+
+                    links.forEach(function (l) {
+                        var token = V('circle', {r: 5, fill: '#feb662'});
+                        l.findView(app.paper).sendToken(token, sec * 1000, function () {
+                            p.set('tokens', p.get('tokens') + 1);
+                        });
+                    });
+                });
+            }
+        }
+
+        function simulate() {
+
+            var chart = getNodeList();
+
+            var transitions = chart.node;
+            transitions.forEach(function (t) {
+                if (Math.random() < 0.7) {
+                    fireTransition(t, 1);
+                }
+            });
+
+            return setInterval(function () {
+                transitions.forEach(function (t) {
+                    if (Math.random() < 0.7) {
+                        fireTransition(t, 1);
+                    }
+                });
+            }, 2000);
+        }
+
+        var simulationId = simulate();
+
+        function stopSimulation(simulationId) {
+            clearInterval(simulationId);
+        }
+    });
+
+    themePicker.$el.hide();
+
+    // 动态节点示例
+    // setTimeout(function () {
+    //     var pn = joint.shapes.pn;
+    //
+    //     var pReady = new pn.Place({
+    //         position: { x: 140, y: 50 },
+    //         attrs: {
+    //             '.label': {
+    //                 'text': 'ready',
+    //                 'fill': '#7c68fc' },
+    //             '.root': {
+    //                 'stroke': '#9586fd',
+    //                 'stroke-width': 3
+    //             },
+    //             '.tokens > circle': {
+    //                 'fill': '#7a7e9b'
+    //             }
+    //         },
+    //         tokens: 1
+    //     });
+    //
+    //     var pIdle = pReady.clone()
+    //         .attr('.label/text', 'idle')
+    //         .position(140, 260)
+    //         .set('tokens', 2);
+    //
+    //     var buffer = pReady.clone()
+    //         .position(350, 160)
+    //         .set('tokens', 12)
+    //         .attr({
+    //             '.label': {
+    //                 'text': 'buffer'
+    //             },
+    //             '.alot > text': {
+    //                 'fill': '#fe854c',
+    //                 'font-family': 'Courier New',
+    //                 'font-size': 20,
+    //                 'font-weight': 'bold',
+    //                 'ref-x': 0.5,
+    //                 'ref-y': 0.5,
+    //                 'y-alignment': -0.5,
+    //                 'transform': null
+    //             }
+    //         });
+    //
+    //     var cAccepted = pReady.clone()
+    //         .attr('.label/text', 'accepted')
+    //         .position(550, 50)
+    //         .set('tokens', 1);
+    //
+    //     var cReady = pReady.clone()
+    //         .attr('.label/text', 'accepted')
+    //         .position(560, 260)
+    //         .set('ready', 3);
+    //
+    //     var pProduce = new pn.Transition({
+    //         position: { x: 50, y: 160 },
+    //         attrs: {
+    //             '.label': {
+    //                 'text': 'produce',
+    //                 'fill': '#fe854f'
+    //             },
+    //             '.root': {
+    //                 'fill': '#9586fd',
+    //                 'stroke': '#9586fd'
+    //             }
+    //         }
+    //     });
+    //
+    //     var pSend = pProduce.clone()
+    //         .attr('.label/text', 'send')
+    //         .position(270, 160);
+    //
+    //     var cAccept = pProduce.clone()
+    //         .attr('.label/text', 'accept')
+    //         .position(470, 160);
+    //
+    //     var cConsume = pProduce.clone()
+    //         .attr('.label/text', 'consume')
+    //         .position(680, 160);
+    //
+    //
+    //     function link(a, b) {
+    //
+    //         return new joint.shapes.app.Link({
+    //             source: { id: a.id, selector: '.root' },
+    //             target: { id: b.id, selector: '.root' },
+    //             attrs: {
+    //                 '.connection': {
+    //                     'fill': 'none',
+    //                     'stroke-linejoin': 'round',
+    //                     'stroke-width': '2',
+    //                     'stroke': '#4b4a67'
+    //                 }
+    //             }
+    //         });
+    //     }
+    //
+    //     app.graph.addCell([pReady, pIdle, buffer, cAccepted, cReady, pProduce, pSend, cAccept, cConsume]);
+    //
+    //     app.graph.addCell([
+    //         link(pProduce, pReady),
+    //         link(pReady, pSend),
+    //         link(pSend, pIdle),
+    //         link(pIdle, pProduce),
+    //         link(pSend, buffer),
+    //         link(buffer, cAccept),
+    //         link(cAccept, cAccepted),
+    //         link(cAccepted, cConsume),
+    //         link(cConsume, cReady),
+    //         link(cReady, cAccept)
+    //     ]);
+    //
+    //
+    //     function fireTransition(t, sec) {
+    //
+    //         var inbound = app.graph.getConnectedLinks(t, { inbound: true });
+    //         var outbound = app.graph.getConnectedLinks(t, { outbound: true });
+    //
+    //         var placesBefore = inbound.map(function(link) {
+    //             return link.getSourceElement();
+    //         });
+    //         var placesAfter = outbound.map(function(link) {
+    //             return link.getTargetElement();
+    //         });
+    //
+    //         var isFirable = true;
+    //         placesBefore.forEach(function(p) {
+    //             if (p.get('tokens') === 0) {
+    //                 isFirable = false;
+    //             }
+    //         });
+    //
+    //         if (isFirable) {
+    //
+    //             placesBefore.forEach(function(p) {
+    //                 // Let the execution finish before adjusting the value of tokens. So that we can loop over all transitions
+    //                 // and call fireTransition() on the original number of tokens.
+    //                 setTimeout(function() {
+    //                     p.set('tokens', p.get('tokens') - 1);
+    //                 }, 0);
+    //
+    //                 var links = inbound.filter(function(l) {
+    //                     return l.getSourceElement() === p;
+    //                 });
+    //
+    //                 links.forEach(function(l) {
+    //                     var token = V('circle', { r: 5, fill: '#feb662' });
+    //                     l.findView(app.paper).sendToken(token, sec * 1000);
+    //                 });
+    //             });
+    //
+    //             placesAfter.forEach(function(p) {
+    //
+    //                 var links = outbound.filter(function(l) {
+    //                     return l.getTargetElement() === p;
+    //                 });
+    //
+    //                 links.forEach(function(l) {
+    //                     var token = V('circle', { r: 5, fill: '#feb662' });
+    //                     l.findView(app.paper).sendToken(token, sec * 1000, function() {
+    //                         p.set('tokens', p.get('tokens') + 1);
+    //                     });
+    //                 });
+    //             });
+    //         }
+    //     }
+    //
+    //     function simulate() {
+    //
+    //         var transitions = [pProduce, pSend, cAccept, cConsume];
+    //         transitions.forEach(function(t) {
+    //             if (Math.random() < 0.7) {
+    //                 fireTransition(t, 1);
+    //             }
+    //         });
+    //
+    //         return setInterval(function() {
+    //             transitions.forEach(function(t) {
+    //                 if (Math.random() < 0.7) {
+    //                     fireTransition(t, 1);
+    //                 }
+    //             });
+    //         }, 2000);
+    //     }
+    //
+    //     var simulationId = simulate();
+    //
+    //     function stopSimulation(simulationId) {
+    //         clearInterval(simulationId);
+    //     }
+    // },2000)
+
+    // rappid控件使用代码
+    // //popup
+    // $('#v-87').on('click', function () {
+    //     //$('.paper-container g[data-type="flow.Rectangle"] rect').on('mouseover', function() {
+    //     var popup = new joint.ui.Popup({
+    //         events: {
+    //             'click .btn-cancel': 'remove',
+    //             'click .btn-change': function () {
+    //                 var strokeWidth = parseInt(this.$('.inp-stroke-width').val(), 10);
+    //                 var fill = this.$('.inp-fill').val();
+    //                 V(this.options.target).attr({fill: fill, 'stroke-width': strokeWidth});
+    //             }
+    //         },
+    //         content: [
+    //             '<div>',
+    //             'Fill: <input class="inp-fill" type="color" value="#31D0C6" /> <br/><br/>',
+    //             'Stroke width: <input class="inp-stroke-width" type="number" value="5" /> <br/><br/>',
+    //             '<button class="btn-cancel">Cancel</button>',
+    //             '<button class="btn-change">Change</button>',
+    //             '</div>'
+    //         ].join(''),
+    //         target: this
+    //     });
+    //     popup.render();
+    // });
+    //
+    // //toolbar
+    // $('.paper-container').on('click', "rect", function () {
+    //
+    //     var circle = this;
+    //
+    //     var ct = new joint.ui.ContextToolbar({
+    //         tools: [
+    //             {action: 'hide', content: 'Hide'},
+    //             {action: 'info', content: 'Info'},
+    //             {action: 'remove', content: 'Remove'}
+    //         ],
+    //         target: circle
+    //     });
+    //
+    //     ct.on('action:hide', ct.remove, ct);
+    //     ct.on('action:remove', function () {
+    //         V(circle).remove();
+    //     });
+    //     ct.on('action:info', function () {
+    //         alert('This is an SVG circle');
+    //     });
+    //
+    //     ct.render();
+    // });
+    //
+    //
+    //
+    // var createHalo = function(cellView, evt, coordinates) {
+    //
+    //     var cell = cellView.model;
+    //
+    //     var options = {
+    //         theme: 'modern',
+    //         cellView: cellView,
+    //         bbox: coordinates,
+    //         rotateAngleGrid: 2,
+    //         type: {
+    //             'basic.Rect': 'pie',
+    //             'basic.Circle': 'surrounding',
+    //             'flow.Rectangle': 'toolbar',
+    //             'link': 'toolbar'
+    //         }[cell.get('type')],
+    //         clone: function(cell, opt) {
+    //             var clone = cell.clone().unset('z');
+    //             if (opt.fork) clone.translate(cell.get('size').width + 20, 0);
+    //             if (opt.clone) clone.translate(20, 20);
+    //             return clone;
+    //         }
+    //     };
+    //
+    //     if (cell.get('multiplePieToggleButtons')) {
+    //         options.pieToggles = [
+    //             { name: 'left', position: 'w' },
+    //             { name: 'right', position: 'e' },
+    //             { name: 'top', position: 'n' },
+    //             { name: 'bottom', position: 's' }
+    //         ];
+    //     }
+    //
+    //     var halo = window.halo = new joint.ui.Halo(options);
+    //     halo.render();
+    //
+    //     // Adding a custom action.
+    //     halo.addHandle({ name: 'myaction', position: 's', icon: 'images/myaction.png' });
+    //     halo.on('action:myaction:pointerdown', function(evt) {
+    //         if (cell.isLink()) {
+    //             cellView.addVertex(coordinates);
+    //         } else {
+    //             evt.stopPropagation();
+    //             alert('My custom action.');
+    //         }
+    //     });
+    // };
+
+</script>
+</body>
+</html>
